@@ -43,20 +43,8 @@
       <div class="hero-note"><strong>{{ item_count }}</strong><span>طعم برای<br>انتخاب تو</span></div>
     </section>
 
-    <section class="popular" aria-labelledby="popular-title">
-      <header class="section-heading"><span>01</span><div><p>پیشنهادهای ویتا</p><h2 id="popular-title">این‌ها رو از دست نده</h2></div></header>
-      <div class="popular-grid">
-        {% for item in featured %}
-        <article class="popular-card color-{% cycle 'pink' 'blue' 'orange' 'green' 'purple' 'yellow' %}">
-          <img src="{{ item.image }}" alt="{{ item.name }}" {% if not forloop.first %}loading="lazy"{% endif %}>
-          <div><small>{{ item.category }}</small><h3>{{ item.name }}</h3><p>{{ item.description }}</p><strong>{{ item.price }} <span>هزار تومان</span></strong></div>
-        </article>
-        {% endfor %}
-      </div>
-    </section>
-
     <section class="menu" id="menu">
-      <header class="section-heading menu-heading"><span>02</span><div><p>هر چی دلت می‌خواد</p><h2>منوی خوشمزه‌ها</h2></div></header>
+      <header class="section-heading menu-heading"><span>01</span><div><p>هر چی دلت می‌خواد</p><h2>منوی خوشمزه‌ها</h2></div></header>
 
       <div class="menu-controls">
         <label class="search">

@@ -5,15 +5,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
-CATEGORY_IMAGES = {
-    "آبمیوه طبیعی": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=700&q=80",
-    "اسموتی": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=700&q=80",
-    "شیک": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=700&q=80",
-    "معجون": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=700&q=80",
-    "بستنی": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=700&q=80",
-    "گرم و دمنوش": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=700&q=80",
-}
-
 MENU_DATA = {
     "آبمیوه طبیعی": [
         ("پرتقال", "پرتقال تازه و آبدار", "۱۲۰", "پرفروش"),
@@ -72,27 +63,23 @@ MENU_DATA = {
 
 def menu(request):
     groups = []
-    featured = []
     for category, entries in MENU_DATA.items():
         items = []
-        for index, (name, description, price, tag) in enumerate(entries):
+        for name, description, price, tag in entries:
             item = {
                 "name": name,
                 "description": description,
                 "price": price,
                 "tag": tag,
                 "category": category,
-                "image": CATEGORY_IMAGES[category],
             }
             items.append(item)
-            if index == 0:
-                featured.append(item)
         groups.append({"name": category, "items": items})
 
     return render(
         request,
         "menu/menu.html",
-        {"groups": groups, "featured": featured, "item_count": sum(len(group["items"]) for group in groups)},
+        {"groups": groups, "item_count": sum(len(group["items"]) for group in groups)},
     )
 
 

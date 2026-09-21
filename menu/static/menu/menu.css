@@ -58,32 +58,11 @@ a { color: inherit; }
 .hero-note strong { font: 900 25px Arial; }
 .hero-note span { font-size: 8px; font-weight: 700; line-height: 1.3; }
 
-.popular { padding: 66px 14px 75px; }
 .section-heading { align-items: flex-start; display: flex; gap: 12px; margin: 0 4px 23px; }
 .section-heading > span { align-items: center; background: var(--ink); border-radius: 50%; color: #fff; display: flex; flex: none; font: 700 9px Arial; height: 25px; justify-content: center; width: 25px; }
 .section-heading p { color: var(--blue); font-size: 9px; font-weight: 800; margin: 0 0 2px; }
 .section-heading h2 { font-size: 25px; letter-spacing: -.05em; line-height: 1.2; margin: 0; }
-.popular-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.popular-card { border-radius: 23px 23px 23px 7px; box-shadow: 0 12px 26px rgba(45,36,29,.13); min-width: 0; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease; }
-.popular-card:nth-child(even) { border-radius: 23px 7px 23px 23px; }
-.popular-card:active { box-shadow: 0 5px 13px rgba(45,36,29,.14); transform: scale(.985); }
-.popular-card:first-child { grid-column: 1 / -1; }
-.popular-card img { display: block; height: 128px; object-fit: cover; width: 100%; }
-.popular-card:first-child img { height: 190px; }
-.popular-card > div { min-height: 138px; padding: 11px; position: relative; }
-.popular-card small { font-size: 7px; font-weight: 700; }
-.popular-card h3 { font-size: 14px; margin: 4px 0 2px; }
-.popular-card p { display: -webkit-box; font-size: 8px; line-height: 1.5; margin: 0 0 13px; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-.popular-card strong { font-size: 13px; }
-.popular-card strong span { font-size: 7px; font-weight: 500; }
-.color-pink { background: var(--pink); }
-.color-blue { background: #8ea2ff; }
-.color-orange { background: #ff9a70; }
-.color-green { background: var(--green); }
-.color-purple { background: #bca8ff; }
-.color-yellow { background: var(--yellow); }
-
-.menu { background: #fff; border-top: 2px solid var(--ink); min-height: 700px; padding-top: 59px; }
+.menu { background: #fff; min-height: 700px; padding-top: 59px; }
 .menu-heading { padding: 0 14px; }
 .menu-heading p { color: var(--orange); }
 .menu-controls { background: rgba(255,255,255,.94); box-shadow: 0 9px 24px rgba(24,24,24,.06); padding: 0 14px 12px; position: sticky; top: 0; z-index: 10; }
@@ -154,12 +133,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .intro { font-size: 15px; max-width: 330px; }
   .juice-art { bottom: 100px; left: 10vw; transform: scale(1.6); }
   .hero-note { bottom: 60px; right: 8vw; }
-  .popular, .menu-groups { margin: auto; max-width: 1100px; }
-  .popular { padding-bottom: 110px; padding-top: 110px; }
-  .popular-grid { grid-template-columns: repeat(3, 1fr); }
-  .popular-card:first-child { grid-column: auto; }
-  .popular-card:first-child img, .popular-card img { height: 210px; }
-  .popular-card > div { min-height: 155px; }
+  .menu-groups { margin: auto; max-width: 1100px; }
   .menu-heading { margin-left: auto; margin-right: auto; max-width: 1100px; }
   .menu-controls { padding-left: max(14px, calc((100vw - 1100px) / 2)); padding-right: max(14px, calc((100vw - 1100px) / 2)); }
   .categories { margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
@@ -176,8 +150,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .juice-art { transform: scale(.88); transform-origin: bottom left; }
   .hero-note { right: 14px; }
   .section-heading h2 { font-size: 22px; }
-  .popular, .menu-groups { padding-left: 10px; padding-right: 10px; }
-  .popular-card > div { min-height: 145px; padding: 8px; }
+  .menu-groups { padding-left: 10px; padding-right: 10px; }
   .item-top h3 { font-size: 11px; }
 }
 
