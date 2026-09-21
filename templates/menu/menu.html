@@ -3,44 +3,78 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#15120e">
-  <title>خانه آستر | منو</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6ffef">
+  <meta name="description" content="منوی آبمیوه و بستنی ویتا">
+  <title>ویتا | آبمیوه و بستنی</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'menu/menu.css' %}">
 </head>
 <body>
-  <main>
-    <header class="hero">
-      <div class="topline" dir="ltr"><span>ASTER HOUSE</span><span>TABLE 08 / EST. 2018</span></div>
-      <p class="eyebrow">آشپزخانه و کافه شبانه</p>
-      <h1>طعم خوب،<br><em>وقت آرام.</em></h1>
-      <div class="hero-bottom"><p>منوی ما با فصل‌ها تغییر می‌کند، نه با قانون‌ها. درباره پیشنهاد ویژه امشب از ما بپرسید.</p><a href="#menu">دیدن منو <span>↓</span></a></div>
-    </header>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="ویتا، صفحه اصلی"><span>V</span><strong>ویتا</strong></a>
+    <div class="open-status"><i></i> بازیم تا ۱۲ شب</div>
+  </header>
 
-    <section class="menu-section" id="menu">
-      <div class="section-heading"><p class="eyebrow">فصل اکنون</p><h2>با ریتم<br><em>خودتان انتخاب کنید.</em></h2></div>
-      <nav class="filters" aria-label="دسته‌بندی منو">
-        {% for category in categories %}<button class="filter{% if forloop.first %} active{% endif %}" data-category="{{ category }}">{{ category }}</button>{% endfor %}
-      </nav>
-      <div class="menu-grid">
-        {% for item in items %}
-        <article class="dish" data-category="{{ item.category }}">
-          <div class="dish-image"><img src="{{ item.image }}" alt="{{ item.name }}" loading="lazy"><span>{{ item.tag }}</span></div>
-          <div class="dish-copy"><div><h3>{{ item.name }}</h3><p>{{ item.description }}</p></div><strong>{{ item.price }} <small>تومان</small></strong></div>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="kicker">تازه، طبیعی، همین الان</p>
+        <h1>حال خوب<br><em>تو یه لیوان.</em></h1>
+        <p>میوه‌های تازه هر روز، بدون اسانس و رنگ مصنوعی. ترکیب خودت رو هم می‌سازیم.</p>
+      </div>
+      <div class="hero-fruit" aria-hidden="true"><span>🍊</span><span>🍓</span><span>🥝</span></div>
+      <a class="scroll-hint" href="#menu">منو رو ببین <span>↓</span></a>
+    </section>
+
+    <section class="featured" aria-labelledby="featured-title">
+      <div class="section-title"><div><p>انتخاب‌های محبوب</p><h2 id="featured-title">امروز چی می‌چسبه؟</h2></div><span>{{ item_count }} انتخاب تازه</span></div>
+      <div class="featured-track">
+        {% for item in featured %}
+        <article class="feature-card" data-name="{{ item.name }} {{ item.description }}" data-category="{{ item.category }}">
+          <img src="{{ item.image }}" alt="{{ item.name }}" {% if not forloop.first %}loading="lazy"{% endif %}>
+          <div class="feature-overlay"><small>{{ item.category }}</small><h3>{{ item.name }}</h3><strong>{{ item.price }} <small>تومان</small></strong></div>
         </article>
         {% endfor %}
       </div>
     </section>
 
-    <section class="visit">
-      <div><p class="eyebrow">یک شب متفاوت</p><h2>بهترین میز<br><em>منتظر شماست.</em></h2><a class="reservation" href="mailto:hello@asterhouse.example">رزرو میز <span>↗</span></a></div>
-      <div class="qr-card"><img src="{% url 'menu_qr' %}" alt="کد QR منوی خانه آستر"><div><strong>منو را همراه ببرید.</strong><p>کد را اسکن کنید تا منو همیشه روی گوشی شما باشد.</p></div></div>
+    <section class="menu" id="menu">
+      <div class="menu-tools">
+        <label class="search"><span aria-hidden="true">⌕</span><input id="menu-search" type="search" placeholder="دنبال چی می‌گردی؟" autocomplete="off"><button type="button" aria-label="پاک کردن جستجو">×</button></label>
+        <nav class="categories" aria-label="دسته‌بندی منو">
+          <button class="category active" data-category="همه">همه</button>
+          {% for group in groups %}<button class="category" data-category="{{ group.name }}">{{ group.name }}</button>{% endfor %}
+        </nav>
+      </div>
+
+      <div class="menu-groups">
+        {% for group in groups %}
+        <section class="menu-group" data-category="{{ group.name }}">
+          <header><h2>{{ group.name }}</h2><span>{{ group.items|length }} مورد</span></header>
+          <div class="items">
+            {% for item in group.items %}
+            <article class="menu-item" data-name="{{ item.name }} {{ item.description }}">
+              <div class="item-copy"><div class="item-title"><h3>{{ item.name }}</h3>{% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}</div><p>{{ item.description }}</p></div>
+              <strong>{{ item.price }}<small>هزار تومان</small></strong>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+        {% endfor %}
+      </div>
+      <div class="empty-state" hidden><span>🍋</span><h2>چیزی پیدا نشد</h2><p>یک اسم یا ترکیب دیگه امتحان کن.</p></div>
+    </section>
+
+    <section class="info">
+      <div><p>سفارش و اطلاعات</p><h2>تازه می‌گیریم،<br>تازه می‌دیم.</h2><a href="tel:+982112345678">۰۲۱ ۱۲۳۴ ۵۶۷۸</a></div>
+      <div class="qr-card"><img src="{% url 'menu_qr' %}" alt="کد QR منوی ویتا"><p><strong>منوی ویتا توی جیبت</strong><br>اسکن کن و هر وقت خواستی برگرد.</p></div>
     </section>
   </main>
-  <footer><span>تهران، خیابان اوک، پلاک ۴۵</span><span>چهارشنبه تا یکشنبه، ۵ عصر تا دیر وقت</span><span>© خانه آستر</span></footer>
+
+  <footer><strong>VITA / ویتا</strong><span>تهران، میدان تجریش، پاساژ تندیس</span><span>هر روز ۹ صبح تا ۱۲ شب</span></footer>
   <script src="{% static 'menu/menu.js' %}"></script>
 </body>
 </html>

@@ -5,53 +5,95 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
-MENU = [
-    {
-        "name": "سالمون میسو گریل",
-        "description": "سالمون تازه، سس میسو و مرکبات، برنج کریسپی و سبزی‌های معطر.",
-        "price": "۶۸۰,۰۰۰",
-        "category": "غذای اصلی",
-        "tag": "پیشنهاد سرآشپز",
-        "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1000&q=85",
-    },
-    {
-        "name": "پاستای ترافل سیاه",
-        "description": "تالیولینی تازه، ترافل سیاه، کرم پارمزان و فلفل سیاه تازه.",
-        "price": "۵۴۰,۰۰۰",
-        "category": "غذای اصلی",
-        "tag": "گیاهی",
-        "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1000&q=85",
-    },
-    {
-        "name": "هویج کبابی روی آتش",
-        "description": "لبنه، دُقه، عسل شکوفه پرتقال و روغن گشنیز.",
-        "price": "۲۸۰,۰۰۰",
-        "category": "پیش‌غذا",
-        "tag": "برای اشتراک",
-        "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=85",
-    },
-    {
-        "name": "فیز پرتقال خونی",
-        "description": "پرتقال خونی، رزماری، سودا و کمی نمک دریایی.",
-        "price": "۱۹۰,۰۰۰",
-        "category": "نوشیدنی",
-        "tag": "بدون الکل",
-        "image": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1000&q=85",
-    },
-    {
-        "name": "ابر روغن زیتون",
-        "description": "کرم وانیل، روغن زیتون بکر، نمک دریایی و پوست مرکبات.",
-        "price": "۲۳۰,۰۰۰",
-        "category": "دسر",
-        "tag": "تازه",
-        "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=1000&q=85",
-    },
-]
+CATEGORY_IMAGES = {
+    "آبمیوه طبیعی": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=700&q=80",
+    "اسموتی": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=700&q=80",
+    "شیک": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=700&q=80",
+    "معجون": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=700&q=80",
+    "بستنی": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=700&q=80",
+    "گرم و دمنوش": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=700&q=80",
+}
+
+MENU_DATA = {
+    "آبمیوه طبیعی": [
+        ("پرتقال", "پرتقال تازه و آبدار", "۱۲۰", "پرفروش"),
+        ("هویج", "هویج تازه و شیرین", "۹۵", ""),
+        ("سیب", "سیب قرمز و سبز", "۱۱۵", ""),
+        ("انار", "انار تازه فصل", "۱۶۵", "فصلی"),
+        ("هندوانه", "خنک و بدون شکر", "۹۵", ""),
+        ("طالبی", "طالبی شیرین تازه", "۹۵", ""),
+        ("آناناس", "آناناس طبیعی", "۱۸۵", "ویژه"),
+        ("کوکتل چهار فصل", "پرتقال، سیب، آناناس و انار", "۱۷۵", "محبوب"),
+    ],
+    "اسموتی": [
+        ("تروپیکال", "انبه، آناناس، موز و نارگیل", "۱۹۵", "پرفروش"),
+        ("بری میکس", "توت‌فرنگی، بلوبری و تمشک", "۲۱۵", "آنتی‌اکسیدان"),
+        ("سبز", "اسفناج، سیب، کیوی و لیمو", "۱۸۵", "بدون شکر"),
+        ("مانگو تانگو", "انبه، موز و پرتقال", "۱۹۵", ""),
+        ("پینک دراگون", "دراگون‌فروت، توت‌فرنگی و موز", "۲۳۵", "جدید"),
+        ("پروتئین پلاس", "موز، کره بادام‌زمینی و پروتئین", "۲۴۵", "ورزشی"),
+        ("آووکادو", "آووکادو، شیر و عسل", "۲۴۵", ""),
+    ],
+    "شیک": [
+        ("شکلات کلاسیک", "بستنی شکلاتی، شیر و سس شکلات", "۱۸۵", "پرفروش"),
+        ("نوتلا", "نوتلا، بستنی و فندق", "۲۲۵", "محبوب"),
+        ("لوتوس", "بیسکویت و کرم لوتوس", "۲۲۵", ""),
+        ("بادام‌زمینی", "کره بادام‌زمینی، موز و بستنی", "۲۱۵", ""),
+        ("اورئو", "بیسکویت اورئو و بستنی وانیلی", "۲۰۵", ""),
+        ("توت‌فرنگی", "توت‌فرنگی تازه و بستنی", "۱۹۵", ""),
+        ("قهوه", "اسپرسو، بستنی وانیلی و کارامل", "۲۰۵", ""),
+    ],
+    "معجون": [
+        ("معجون مخصوص ویتا", "موز، شیر، بستنی، مغزها و عسل", "۲۸۵", "پیشنهاد ویتا"),
+        ("شیر موز", "موز تازه، شیر و عسل", "۱۴۵", ""),
+        ("شیر پسته", "پسته ممتاز، شیر و بستنی", "۲۶۵", ""),
+        ("شیر خرما", "خرما، شیر و دارچین", "۱۶۵", "انرژی‌زا"),
+        ("شیر عسل", "شیر، عسل طبیعی و دارچین", "۱۴۵", ""),
+        ("معجون رژیمی", "موز، خرما، جو دوسر و شیر بادام", "۲۳۵", "بدون شکر"),
+    ],
+    "بستنی": [
+        ("سنتی زعفرانی", "زعفران، پسته و گلاب", "۱۳۵", "سنتی"),
+        ("فالوده شیرازی", "رشته فالوده، گلاب و لیمو", "۱۲۵", ""),
+        ("بستنی میوه‌ای", "سه اسکوپ به انتخاب شما", "۱۵۵", ""),
+        ("ژلاتو شکلات", "شکلات تلخ و فندق", "۱۶۵", ""),
+        ("ساندی کارامل", "بستنی وانیلی، کارامل و گردو", "۱۸۵", ""),
+        ("آفوگاتو", "بستنی وانیلی و اسپرسو", "۱۶۵", ""),
+    ],
+    "گرم و دمنوش": [
+        ("چای ماسالا", "ادویه مخصوص، شیر و عسل", "۱۲۵", "محبوب"),
+        ("هات چاکلت", "شکلات بلژیکی و شیر", "۱۴۵", ""),
+        ("دمنوش آرامش", "گل‌گاوزبان، سنبل‌الطیب و لیمو", "۱۱۵", ""),
+        ("دمنوش زنجبیل", "زنجبیل، لیمو و عسل", "۱۱۵", ""),
+        ("اسپرسو", "دبل شات عربیکا", "۹۵", ""),
+        ("کاپوچینو", "اسپرسو و فوم شیر", "۱۳۵", ""),
+    ],
+}
 
 
 def menu(request):
-    categories = ["همه", *dict.fromkeys(item["category"] for item in MENU)]
-    return render(request, "menu/menu.html", {"items": MENU, "categories": categories})
+    groups = []
+    featured = []
+    for category, entries in MENU_DATA.items():
+        items = []
+        for index, (name, description, price, tag) in enumerate(entries):
+            item = {
+                "name": name,
+                "description": description,
+                "price": price,
+                "tag": tag,
+                "category": category,
+                "image": CATEGORY_IMAGES[category],
+            }
+            items.append(item)
+            if index == 0:
+                featured.append(item)
+        groups.append({"name": category, "items": items})
+
+    return render(
+        request,
+        "menu/menu.html",
+        {"groups": groups, "featured": featured, "item_count": sum(len(group["items"]) for group in groups)},
+    )
 
 
 def menu_qr(request):
@@ -60,5 +102,5 @@ def menu_qr(request):
     output = BytesIO()
     image.save(output, format="PNG")
     response = HttpResponse(output.getvalue(), content_type="image/png")
-    response["Content-Disposition"] = 'inline; filename="table-menu-qr.png"'
+    response["Content-Disposition"] = 'inline; filename="vita-menu-qr.png"'
     return response
