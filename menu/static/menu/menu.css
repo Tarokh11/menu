@@ -45,8 +45,10 @@ a { color: inherit; }
 .hero-fruit { direction: ltr; font-size: 68px; left: 4px; position: absolute; top: 315px; transform: rotate(-9deg); white-space: nowrap; }
 .hero-fruit span { display: inline-block; filter: drop-shadow(0 18px 18px rgba(0,0,0,.25)); margin-left: -13px; }
 .hero-fruit span:nth-child(2) { transform: translateY(-24px) rotate(14deg); }
-.scroll-hint { bottom: 34px; font-size: 12px; font-weight: 700; position: absolute; right: 22px; text-decoration: none; }
-.scroll-hint span { color: var(--lime); margin-right: 12px; }
+.scroll-hint { align-items: center; background: var(--lime); border: 1px solid rgba(255,255,255,.25); border-radius: 99px; bottom: 28px; box-shadow: 0 10px 28px rgba(0,0,0,.28), 0 0 0 5px rgba(202,255,99,.09); color: var(--ink); display: flex; font-size: 13px; font-weight: 800; padding: 12px 17px; position: absolute; right: 22px; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; z-index: 3; }
+.scroll-hint span { animation: arrow-nudge 1.5s ease-in-out infinite; background: var(--ink); border-radius: 50%; color: var(--lime); display: grid; height: 25px; margin-right: 12px; place-items: center; width: 25px; }
+.scroll-hint:hover { box-shadow: 0 14px 32px rgba(0,0,0,.34), 0 0 0 6px rgba(202,255,99,.14); transform: translateY(-2px); }
+.scroll-hint:active { transform: scale(.97); }
 .juice-bubbles { inset: 0; pointer-events: none; position: absolute; z-index: 1; }
 .juice-bubbles span { animation: bubble-float 5s ease-in-out infinite; background: linear-gradient(145deg, rgba(255,255,255,.22), rgba(202,255,99,.03)); border: 1px solid rgba(255,255,255,.28); border-radius: 50%; box-shadow: inset 4px 4px 8px rgba(255,255,255,.1); position: absolute; }
 .juice-bubbles span:after { background: rgba(255,255,255,.7); border-radius: 50%; content: ""; height: 18%; position: absolute; right: 23%; top: 18%; width: 18%; }
@@ -57,6 +59,7 @@ a { color: inherit; }
 .juice-bubbles span:nth-child(5) { animation-delay: -3.2s; height: 64px; left: 30%; top: 66%; width: 64px; }
 .juice-bubbles span:nth-child(6) { animation-delay: -2.7s; height: 25px; right: 9%; top: 72%; width: 25px; }
 @keyframes bubble-float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-13px) scale(1.04); } }
+@keyframes arrow-nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(2px); } }
 
 .featured { padding: 54px 0 46px; }
 .section-title { align-items: end; display: flex; justify-content: space-between; padding: 0 20px 19px; }
@@ -127,7 +130,8 @@ footer strong { color: var(--lime); font-size: 15px; }
   .hero h1 { font-size: clamp(43px, 14vw, 55px); }
   .hero-copy > p:last-child { font-size: 12px; line-height: 1.8; margin-top: 17px; max-width: 275px; }
   .hero-fruit { font-size: 56px; top: 292px; }
-  .scroll-hint { bottom: 27px; right: 17px; }
+  .scroll-hint { bottom: 22px; font-size: 11px; padding: 9px 13px; right: 17px; }
+  .scroll-hint span { height: 22px; margin-right: 9px; width: 22px; }
   .featured { padding: 43px 0 36px; }
   .section-title { padding: 0 15px 15px; }
   .section-title h2 { font-size: 20px; }
@@ -152,7 +156,7 @@ footer strong { color: var(--lime); font-size: 15px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .juice-bubbles span { animation: none; }
+  .juice-bubbles span, .scroll-hint span { animation: none; }
 }
 
 @media (min-width: 720px) {
