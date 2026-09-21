@@ -3,6 +3,8 @@ const clearButton = document.querySelector('.search button');
 const categoryButtons = document.querySelectorAll('.category');
 const groups = document.querySelectorAll('.menu-group');
 const emptyState = document.querySelector('.empty-state');
+const resultCount = document.querySelector('.result-count strong');
+const persianNumber = new Intl.NumberFormat('fa-IR');
 let activeCategory = 'همه';
 
 function filterMenu() {
@@ -24,6 +26,7 @@ function filterMenu() {
 
   clearButton.classList.toggle('visible', Boolean(query));
   emptyState.hidden = visibleItems !== 0;
+  resultCount.textContent = persianNumber.format(visibleItems);
 }
 
 categoryButtons.forEach((button) => {
@@ -44,3 +47,5 @@ clearButton.addEventListener('click', () => {
   searchInput.focus();
   filterMenu();
 });
+
+filterMenu();
