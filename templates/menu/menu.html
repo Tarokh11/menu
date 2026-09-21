@@ -1,46 +1,46 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#15120e">
-  <title>Aster House | Menu</title>
+  <title>خانه آستر | منو</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'menu/menu.css' %}">
 </head>
 <body>
   <main>
     <header class="hero">
-      <div class="topline"><span>ASTER HOUSE</span><span>EST. 2018 / TABLE 08</span></div>
-      <p class="eyebrow">A late-night kitchen &amp; bar</p>
-      <h1>Good food.<br><em>Unhurried hours.</em></h1>
-      <div class="hero-bottom"><p>Our menu follows the seasons, not the rules. Ask us about tonight's off-menu pour.</p><a href="#menu">Explore menu <span>↓</span></a></div>
+      <div class="topline" dir="ltr"><span>ASTER HOUSE</span><span>TABLE 08 / EST. 2018</span></div>
+      <p class="eyebrow">آشپزخانه و کافه شبانه</p>
+      <h1>طعم خوب،<br><em>وقت آرام.</em></h1>
+      <div class="hero-bottom"><p>منوی ما با فصل‌ها تغییر می‌کند، نه با قانون‌ها. درباره پیشنهاد ویژه امشب از ما بپرسید.</p><a href="#menu">دیدن منو <span>↓</span></a></div>
     </header>
 
     <section class="menu-section" id="menu">
-      <div class="section-heading"><p class="eyebrow">The current chapter</p><h2>Choose your<br><em>own pace.</em></h2></div>
-      <nav class="filters" aria-label="Menu categories">
+      <div class="section-heading"><p class="eyebrow">فصل اکنون</p><h2>با ریتم<br><em>خودتان انتخاب کنید.</em></h2></div>
+      <nav class="filters" aria-label="دسته‌بندی منو">
         {% for category in categories %}<button class="filter{% if forloop.first %} active{% endif %}" data-category="{{ category }}">{{ category }}</button>{% endfor %}
       </nav>
       <div class="menu-grid">
         {% for item in items %}
         <article class="dish" data-category="{{ item.category }}">
           <div class="dish-image"><img src="{{ item.image }}" alt="{{ item.name }}" loading="lazy"><span>{{ item.tag }}</span></div>
-          <div class="dish-copy"><div><h3>{{ item.name }}</h3><p>{{ item.description }}</p></div><strong>${{ item.price }}</strong></div>
+          <div class="dish-copy"><div><h3>{{ item.name }}</h3><p>{{ item.description }}</p></div><strong>{{ item.price }} <small>تومان</small></strong></div>
         </article>
         {% endfor %}
       </div>
     </section>
 
     <section class="visit">
-      <div><p class="eyebrow">Make an evening of it</p><h2>The best seat<br>is <em>waiting.</em></h2><a class="reservation" href="mailto:hello@asterhouse.example">Reserve a table <span>↗</span></a></div>
-      <div class="qr-card"><img src="{% url 'menu_qr' %}" alt="QR code linking to this menu"><div><strong>Take us with you.</strong><p>Scan to open this menu on your phone, any time.</p></div></div>
+      <div><p class="eyebrow">یک شب متفاوت</p><h2>بهترین میز<br><em>منتظر شماست.</em></h2><a class="reservation" href="mailto:hello@asterhouse.example">رزرو میز <span>↗</span></a></div>
+      <div class="qr-card"><img src="{% url 'menu_qr' %}" alt="کد QR منوی خانه آستر"><div><strong>منو را همراه ببرید.</strong><p>کد را اسکن کنید تا منو همیشه روی گوشی شما باشد.</p></div></div>
     </section>
   </main>
-  <footer><span>45 OAK STREET, ANYWHERE</span><span>OPEN WED - SUN / 5PM LATE</span><span>© ASTER HOUSE</span></footer>
+  <footer><span>تهران، خیابان اوک، پلاک ۴۵</span><span>چهارشنبه تا یکشنبه، ۵ عصر تا دیر وقت</span><span>© خانه آستر</span></footer>
   <script src="{% static 'menu/menu.js' %}"></script>
 </body>
 </html>
