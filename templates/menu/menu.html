@@ -4,87 +4,84 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffef56">
-  <meta name="description" content="منوی آنلاین آبمیوه و بستنی ویتا">
-  <title>ویتا | یک جرعه حال خوب</title>
+  <meta name="theme-color" content="#b62222">
+  <meta name="description" content="منوی آنلاین فست‌فود سر کوچه">
+  <title>سر کوچه | ساندویچ و پیتزا</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'menu/menu.css' %}">
 </head>
 <body>
-  <div class="ticker" aria-label="ویژگی‌های محصولات">
-    <div><span>میوه تازه هر روز</span><b>✦</b><span>بدون رنگ مصنوعی</span><b>✦</b><span>سفارش ترکیب دلخواه</span><b>✦</b><span>میوه تازه هر روز</span><b>✦</b></div>
-  </div>
-
+  <div class="top-strip"><span>از ۱۳۷۸ تا همین امشب</span><b>ساندویچ داغ، رفاقت قدیمی</b><span>هر روز ۱۲ ظهر تا ۱ شب</span></div>
   <header class="site-header" id="top">
-    <a class="brand" href="#top"><span>VITA</span><strong>ویتا</strong></a>
-    <a class="call-link" href="tel:+982112345678"><i></i> سفارش تلفنی</a>
+    <a class="brand" href="#top"><strong>سر کوچه</strong><span>FAST FOOD</span></a>
+    <a class="phone" href="tel:+982112345678"><span>سفارش</span><strong>۰۲۱ ۱۲۳۴ ۵۶۷۸</strong></a>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <p class="overline">آبمیوه و بستنی طبیعی</p>
-        <h1>یه جرعه<br><mark>حالِ خوب!</mark></h1>
-        <p class="intro">از میوه واقعی تا لیوان تو؛ تازه، خوش‌رنگ و پر از انرژی.</p>
-        <a class="primary-action" href="#menu"><span>بزن بریم سراغ منو</span><b>↓</b></a>
+        <p class="eyebrow"><span></span> فست‌فود محله شما</p>
+        <h1>داغ و تازه،<br><em>مثل قدیما.</em></h1>
+        <p class="hero-text">ساندویچ‌های پرملات، برگر دست‌ساز و پیتزایی که پنیرش کم نمیاد.</p>
+        <a class="menu-action" href="#menu"><span>منو رو باز کن</span><b>↓</b></a>
       </div>
-      <div class="juice-art" aria-hidden="true">
-        <span class="sun"></span>
-        <span class="straw"></span>
-        <div class="cup"><i></i><i></i><i></i><strong>V</strong></div>
-        <span class="fruit fruit-orange">●</span>
-        <span class="fruit fruit-lime">✦</span>
-        <span class="fruit fruit-berry">●</span>
-        <span class="spark spark-one">✦</span>
-        <span class="spark spark-two">✦</span>
+      <div class="sandwich-art" aria-hidden="true">
+        <span class="steam steam-one">~</span><span class="steam steam-two">~</span>
+        <div class="bread top-bread"><i></i><i></i><i></i></div>
+        <div class="lettuce"></div><div class="tomato"></div><div class="cheese"></div><div class="patty"></div>
+        <div class="bread bottom-bread"></div>
+        <span class="paper"></span>
       </div>
-      <div class="hero-note"><strong>{{ item_count }}</strong><span>طعم برای<br>انتخاب تو</span></div>
+      <div class="since"><span>EST.</span><strong>۱۳۷۸</strong><span>TEHRAN</span></div>
     </section>
 
     <section class="menu" id="menu">
-      <header class="section-heading menu-heading"><span>01</span><div><p>هر چی دلت می‌خواد</p><h2>منوی خوشمزه‌ها</h2></div></header>
-
+      <div class="menu-intro"><p>هر چی هوس کردی</p><h2>منوی سر کوچه</h2><span>{{ item_count }} مدل خوشمزگی</span></div>
       <div class="menu-controls">
         <label class="search">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
-          <input id="menu-search" type="search" placeholder="اسم یا ترکیبات رو جستجو کن..." autocomplete="off">
+          <input id="menu-search" type="search" placeholder="مثلاً بندری یا قارچ..." autocomplete="off">
           <button type="button" aria-label="پاک کردن جستجو">×</button>
         </label>
         <nav class="categories" aria-label="دسته‌بندی منو">
-          <button class="category active" data-category="همه" aria-pressed="true"><span>✦</span> همه</button>
-          {% for group in groups %}<button class="category" data-category="{{ group.name }}" aria-pressed="false">{{ group.name }}</button>{% endfor %}
+          <button class="category active" data-category="همه" aria-pressed="true">همه</button>
+          {% for group in groups %}<button class="category" data-category="{{ group.name }}" aria-pressed="false"><span>{{ group.icon }}</span>{{ group.name }}</button>{% endfor %}
         </nav>
-        <p class="result-count"><strong>{{ item_count }}</strong> مورد برای انتخاب</p>
+        <p class="result-count"><strong>{{ item_count }}</strong> مورد در منو</p>
       </div>
 
       <div class="menu-groups">
         {% for group in groups %}
-        <section class="menu-group group-{% cycle 'pink' 'blue' 'orange' 'green' 'purple' 'yellow' %}" data-category="{{ group.name }}">
-          <header><div><span>0{{ forloop.counter }}</span><h2>{{ group.name }}</h2></div><small>{{ group.items|length }} انتخاب</small></header>
+        <section class="menu-group" data-category="{{ group.name }}">
+          <header>
+            <div class="category-icon">{{ group.icon }}</div>
+            <div><p>{{ group.note }}</p><h2>{{ group.name }}</h2></div>
+            <span>{{ group.items|length }} مورد</span>
+          </header>
           <div class="items">
             {% for item in group.items %}
             <article class="menu-item" data-name="{{ item.name }} {{ item.description }}">
-              <div class="item-top"><h3>{{ item.name }}</h3>{% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}</div>
-              <p>{{ item.description }}</p>
-              <div class="price"><strong>{{ item.price }}</strong><span>هزار<br>تومان</span></div>
+              <div class="item-main"><div class="item-title"><h3>{{ item.name }}</h3>{% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}</div><p>{{ item.description }}</p></div>
+              <span class="dots"></span>
+              <div class="price"><strong>{{ item.price }}</strong><small>هزار تومان</small></div>
             </article>
             {% endfor %}
           </div>
         </section>
         {% endfor %}
       </div>
-      <div class="empty-state" hidden><span>🍊</span><h2>این یکی رو نداریم!</h2><p>یک اسم یا ترکیب دیگه جستجو کن.</p></div>
+      <div class="empty-state" hidden><span>🥪</span><h2>پیداش نکردیم!</h2><p>یک اسم یا ترکیب دیگه امتحان کن.</p></div>
     </section>
 
-    <section class="visit">
-      <div class="visit-copy"><p>پاتوق خوشمزه‌ها</p><h2>منتظرتیم،<br><em>با یه لیوان خنک.</em></h2><a href="tel:+982112345678">۰۲۱ ۱۲۳۴ ۵۶۷۸</a><span>تهران، میدان تجریش، پاساژ تندیس</span></div>
-      <div class="qr-ticket"><div class="ticket-top"><span>منوی همراه</span><b>VITA</b></div><img src="{% url 'menu_qr' %}" alt="کد QR منوی ویتا"><p>اسکن کن، منو رو ببر!</p></div>
+    <section class="order-info">
+      <div class="order-copy"><p>گرسنه‌ای؟</p><h2>زنگ بزن،<br>داغ می‌رسونیم.</h2><a href="tel:+982112345678">۰۲۱ ۱۲۳۴ ۵۶۷۸</a><span>ارسال رایگان برای محله خودمون</span></div>
+      <div class="qr-card"><div class="qr-label"><strong>منوی آنلاین</strong><span>همیشه دم دستت</span></div><img src="{% url 'menu_qr' %}" alt="کد QR منوی سر کوچه"><p>اسکن کن و منو رو ببین</p></div>
     </section>
   </main>
 
-  <footer><strong>VITA®</strong><span>هر روز از ۹ صبح تا ۱۲ شب</span><a href="#top">برگرد بالا ↑</a></footer>
+  <footer><div><strong>سر کوچه</strong><span>فست‌فود محلی از ۱۳۷۸</span></div><p>تهران، خیابان ولیعصر، سر کوچه یازدهم</p><a href="#top">بالا ↑</a></footer>
   <script src="{% static 'menu/menu.js' %}"></script>
 </body>
 </html>
