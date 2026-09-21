@@ -20,6 +20,9 @@
 
   <main id="top">
     <section class="hero">
+      <div class="juice-bubbles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
       <div class="hero-copy">
         <p class="kicker">تازه، طبیعی، همین الان</p>
         <h1>حال خوب<br><em>تو یه لیوان.</em></h1>
@@ -45,8 +48,8 @@
       <div class="menu-tools">
         <label class="search"><span aria-hidden="true">⌕</span><input id="menu-search" type="search" placeholder="دنبال چی می‌گردی؟" autocomplete="off"><button type="button" aria-label="پاک کردن جستجو">×</button></label>
         <nav class="categories" aria-label="دسته‌بندی منو">
-          <button class="category active" data-category="همه">همه</button>
-          {% for group in groups %}<button class="category" data-category="{{ group.name }}">{{ group.name }}</button>{% endfor %}
+          <button class="category active" data-category="همه" aria-pressed="true">همه</button>
+          {% for group in groups %}<button class="category" data-category="{{ group.name }}" aria-pressed="false">{{ group.name }}</button>{% endfor %}
         </nav>
       </div>
 

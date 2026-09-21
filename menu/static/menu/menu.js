@@ -28,8 +28,11 @@ function filterMenu() {
 
 categoryButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    document.querySelector('.category.active').classList.remove('active');
+    const previousButton = document.querySelector('.category.active');
+    previousButton.classList.remove('active');
+    previousButton.setAttribute('aria-pressed', 'false');
     button.classList.add('active');
+    button.setAttribute('aria-pressed', 'true');
     activeCategory = button.dataset.category;
     filterMenu();
   });
