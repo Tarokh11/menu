@@ -7,15 +7,19 @@ const resultCount = document.querySelector('.result-count strong');
 const persianNumber = new Intl.NumberFormat('fa-IR');
 let activeCategory = 'همه';
 
+function normalizeSearch(value) {
+  return value.toLocaleLowerCase('fa').replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/[\s\u200c]+/g, ' ').trim();
+}
+
 function filterMenu() {
-  const query = searchInput.value.trim().toLocaleLowerCase('fa');
+  const query = normalizeSearch(searchInput.value);
   let visibleItems = 0;
 
   groups.forEach((group) => {
     let groupItems = 0;
     group.querySelectorAll('.menu-item').forEach((item) => {
       const categoryMatches = activeCategory === 'همه' || group.dataset.category === activeCategory;
-      const searchMatches = item.dataset.name.toLocaleLowerCase('fa').includes(query);
+      const searchMatches = normalizeSearch(item.dataset.name).includes(query);
       const visible = categoryMatches && searchMatches;
       item.hidden = !visible;
       if (visible) groupItems += 1;
@@ -49,3 +53,9 @@ clearButton.addEventListener('click', () => {
 });
 
 filterMenu();
+
+document.querySelector('#reset-filters').addEventListener('click', () => {
+  searchInput.value = '';
+  categoryButtons[0].click();
+  searchInput.focus();
+});

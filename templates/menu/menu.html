@@ -3,71 +3,58 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4efe5">
-  <meta name="description" content="منوی کافه آرام؛ قهوه، دمنوش، صبحانه و شیرینی">
-  <title>آرام | قهوه و لحظه‌های کوچک</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#301c35">
+  <meta name="description" content="روز و شب؛ منوی کافه رستوران از صبحانه تا شام">
+  <title>روز و شب | کافه رستوران</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'menu/menu.css' %}">
 </head>
 <body>
   <header class="site-header" id="top">
-    <a class="brand" href="#top"><strong>آرام</strong><span lang="en">ARAM COFFEE HOUSE</span></a>
-    <a class="header-menu" href="#menu">منوی کافه <span>↓</span></a>
+    <a class="brand" href="#top"><span class="brand-symbol" aria-hidden="true">◐</span><span>روز و شب<small>کافه · رستوران</small></span></a>
+    <a class="header-link" href="#menu">منو <span>↙</span></a>
   </header>
   <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">یک مکث کوتاه، یک فنجان خوب</p>
-        <h1>اینجا،<br>کمی <em>آرام‌تر.</em></h1>
-        <p class="intro">برای قهوه‌ای که عجله ندارد،<br>و لحظه‌هایی که دوست داری طولانی‌تر شوند.</p>
-        <a class="hero-action" href="#menu">منو را ورق بزن <span>↓</span></a>
-      </div>
-      <div class="coffee-scene" aria-hidden="true">
-        <div class="arch"><div class="sun"></div><div class="shelf"></div></div>
-        <div class="saucer"></div><div class="cup"><div class="coffee"><span></span></div></div>
-        <div class="steam"><i></i><i></i><i></i></div>
-        <span class="scene-label">SLOW MORNINGS<br>GOOD COFFEE</span>
-      </div>
-      <div class="hero-foot"><span>قهوه با حوصله، شیرینی تازه</span><span lang="en">A LITTLE EVERYDAY RITUAL</span></div>
+    <section class="welcome">
+      <img class="welcome-photo" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=80" alt="فضای گرم میز شام در رستوران" width="1000" height="667" fetchpriority="high">
+      <div class="welcome-copy"><p>از اولین قهوه تا آخرین قرار</p><h1>هر ساعت،<br>یک طعم تازه.</h1><a href="#menu">امروز چی میل داری؟ <span>↓</span></a></div>
+      <span class="photo-note" lang="en">ALL DAY, YOUR WAY.</span>
     </section>
-
-    <section class="menu" id="menu">
-      <header class="menu-title"><p class="eyebrow">به سلیقه امروزت</p><h2>از اولین جرعه<br>تا آخرین لقمه.</h2><p>قیمت‌ها به هزار تومان هستند.</p></header>
+    <section class="menu" id="menu" aria-labelledby="menu-title">
+      <div class="menu-heading"><div><p>یک میز، هزار بهانه</p><h2 id="menu-title">منوی روز و شب</h2></div><span class="menu-total">۴۰<span>انتخاب</span></span></div>
       <div class="menu-controls">
-        <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="menu-search" type="search" aria-label="جستجو در منو" placeholder="نام یا ترکیبات را جستجو کن…" autocomplete="off"><button type="button" aria-label="پاک کردن جستجو">×</button></div>
+        <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><path d="m15 15 5 5"></path></svg><input id="menu-search" type="search" aria-label="جستجو در منو" placeholder="هوس چی کردی؟" autocomplete="off"><button type="button" aria-label="پاک کردن جستجو">×</button></div>
         <nav class="categories" aria-label="دسته‌بندی منو">
           <button class="category active" data-category="همه" aria-pressed="true">همه</button>
           {% for group in groups %}<button class="category" data-category="{{ group.name }}" aria-pressed="false">{{ group.name }}</button>{% endfor %}
         </nav>
-        <p class="result-count" role="status"><strong>{{ item_count }}</strong> انتخاب برای یک مکث خوب</p>
       </div>
+      <div class="results-line"><p class="result-count" role="status"><strong>{{ item_count }}</strong> مورد</p><span>قیمت‌ها به هزار تومان</span></div>
       <div class="menu-groups">
         {% for group in groups %}
         <section class="menu-group" data-category="{{ group.name }}">
-          <header><span class="section-number">{{ forloop.counter|stringformat:"02d" }}</span><div><p lang="en">{{ group.code }}</p><h2>{{ group.name }}</h2></div><span class="sprig" aria-hidden="true">❧</span></header>
+          <header><span aria-hidden="true">{% cycle '☀' '✳' '◒' '☕' '❋' '✦' %}</span><div><p>{% cycle 'شروع یک روز خوب' 'قبل از غذای اصلی' 'وقت یک وعده حسابی' 'یک فنجان مکث' 'خنک، تازه، متفاوت' 'برای آخرین لبخند' %}</p><h2>{{ group.name }}</h2></div></header>
           <div class="items">
             {% for item in group.items %}
             <article class="menu-item" data-name="{{ item.name }} {{ item.description }}">
-              <div class="item-copy"><div class="item-title"><h3>{{ item.name }}</h3>{% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}</div><p>{{ item.description }}</p></div>
-              <div class="price"><strong>{{ item.price }}</strong><small>هزار تومان</small></div>
+              <div class="item-top"><h3>{{ item.name }}</h3><strong>{{ item.price }}<span class="sr-only"> هزار تومان</span></strong></div>
+              <p>{{ item.description }}</p>
+              {% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}
             </article>
             {% endfor %}
           </div>
         </section>
         {% endfor %}
       </div>
-      <div class="empty-state" hidden><span aria-hidden="true">☕</span><h2>هنوز پیدایش نکردیم</h2><p>یک نام یا ترکیب دیگر امتحان کن.</p></div>
+      <div class="empty-state" hidden><span aria-hidden="true">◒</span><h2>این طعم را پیدا نکردیم</h2><p>نام یا ترکیبات دیگری جستجو کن.</p><button type="button" id="reset-filters">نمایش همه منو</button></div>
     </section>
-
-    <section class="takeaway">
-      <div><p class="eyebrow">یک تکه از آرام، همراه تو</p><h2>این منو را<br>نگه دار.</h2><p class="takeaway-note">کد را اسکن کن و برای انتخاب فنجان بعدی‌ات برگرد.</p><a class="qr-download" href="{% url 'menu_qr' %}" download="aram-menu.png">دریافت کد منو ↗</a></div>
-      <div class="qr-card"><span lang="en">A LITTLE MOMENT OF CALM</span><img src="{% url 'menu_qr' %}" alt="کد QR منوی کافه آرام" loading="lazy"><strong>آرام</strong><p>قهوه و لحظه‌های کوچک</p></div>
-    </section>
+    <section class="menu-pass" id="menu-pass"><div><p>برای قرار بعدی نگه دار</p><h2>منو، همیشه همراهت.</h2><a href="{% url 'menu_qr' %}" download="rooz-shab-menu.png">دریافت QR منو ↗</a></div><img src="{% url 'menu_qr' %}" alt="کد QR منوی کافه رستوران روز و شب" width="120" height="120" loading="lazy"></section>
   </main>
-  <footer><a class="brand" href="#top"><strong>آرام</strong><span lang="en">ARAM COFFEE HOUSE</span></a><p>کمی مکث کن. قهوه‌ات منتظر است.</p><a href="#top">بازگشت به بالا ↑</a></footer>
+  <footer><span>روز و شب</span><p>از صبحانه تا شام، کنار هم.</p></footer>
+  <nav class="bottom-nav" aria-label="دسترسی سریع"><a href="#top"><span aria-hidden="true">◐</span>شروع</a><a href="#menu" class="nav-menu"><span aria-hidden="true">☷</span>دیدن منو</a><a href="#menu-pass"><span aria-hidden="true">▦</span>کد منو</a></nav>
   <script src="{% static 'menu/menu.js' %}"></script>
 </body>
 </html>
