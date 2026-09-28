@@ -42,9 +42,8 @@ checkout of this repository at the path stored in `DEPLOY_PATH`. Keep the
 server's production `.env` in that checkout; it is intentionally ignored by
 Git.
 
-Create a GitHub Environment named `third-idea` and add these values there:
-
-Environment variables:
+Create a GitHub Environment named `third-idea` and add all of these as
+Environment secrets:
 
 ```text
 SERVER_HOST       Server hostname or IP address
@@ -52,8 +51,6 @@ SERVER_USER       SSH login username
 SERVER_PORT       Optional SSH port; defaults to 22
 DEPLOY_PATH       Absolute path to the server checkout
 ```
-
-Add `SERVER_SSH_KEY` as an Environment secret, not as a plain variable.
 
 The server checkout must have `origin` pointing to this repository and the
 deploy user must be allowed to run Docker without interactive prompts.
