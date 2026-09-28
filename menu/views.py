@@ -12,7 +12,7 @@ MENU = [
         "price": "۶۸۰,۰۰۰",
         "category": "غذای اصلی",
         "tag": "پیشنهاد سرآشپز",
-        "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1000&q=85",
+        "image": "/static/menu/images/salmon.jpg",
     },
     {
         "name": "پاستای ترافل سیاه",
@@ -20,7 +20,7 @@ MENU = [
         "price": "۵۴۰,۰۰۰",
         "category": "غذای اصلی",
         "tag": "گیاهی",
-        "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1000&q=85",
+        "image": "/static/menu/images/pasta.jpg",
     },
     {
         "name": "هویج کبابی روی آتش",
@@ -28,7 +28,7 @@ MENU = [
         "price": "۲۸۰,۰۰۰",
         "category": "پیش‌غذا",
         "tag": "برای اشتراک",
-        "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=85",
+        "image": "/static/menu/images/carrot.jpg",
     },
     {
         "name": "فیز پرتقال خونی",
@@ -36,7 +36,7 @@ MENU = [
         "price": "۱۹۰,۰۰۰",
         "category": "نوشیدنی",
         "tag": "بدون الکل",
-        "image": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1000&q=85",
+        "image": "/static/menu/images/drink.jpg",
     },
     {
         "name": "ابر روغن زیتون",
@@ -44,7 +44,7 @@ MENU = [
         "price": "۲۳۰,۰۰۰",
         "category": "دسر",
         "tag": "تازه",
-        "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=1000&q=85",
+        "image": "/static/menu/images/dessert.jpg",
     },
 ]
 
