@@ -1,8 +1,7 @@
-from django.urls import path
-
-from menu import views
+from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
-    path("", views.menu, name="menu"),
-    path("qr/", views.menu_qr, name="menu_qr"),
+    path("admin/", admin.site.urls),
+    path("", include("menu.urls")),
 ]
