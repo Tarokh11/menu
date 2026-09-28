@@ -1,0 +1,58 @@
+name: Deploy third-idea
+
+on:
+  push:
+    branches:
+      - third-idea
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-third-idea
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    environment: third-idea
+
+    steps:
+      - name: Validate deployment secrets
+        env:
+          SERVER_HOST: ${{ vars.SERVER_HOST || secrets.SERVER_HOST }}
+          SERVER_USER: ${{ vars.SERVER_USER || secrets.SERVER_USER }}
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH || secrets.DEPLOY_PATH }}
+        run: |
+          set -eu
+          for variable in SERVER_HOST SERVER_USER SERVER_SSH_KEY DEPLOY_PATH; do
+            if [ -z "${!variable}" ]; then
+              printf 'Missing required deployment value: %s\n' "$variable" >&2
+              exit 1
+            fi
+          done
+
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.2
+        env:
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH || secrets.DEPLOY_PATH }}
+        with:
+          host: ${{ vars.SERVER_HOST || secrets.SERVER_HOST }}
+          username: ${{ vars.SERVER_USER || secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ vars.SERVER_PORT || secrets.SERVER_PORT || '22' }}
+          envs: DEPLOY_PATH
+          script_stop: true
+          script: |
+            set -eu
+            cd "$DEPLOY_PATH"
+            git fetch --prune origin third-idea
+            git checkout -B third-idea origin/third-idea
+            docker compose build web
+            docker compose run --rm web python manage.py test
+            docker compose up -d
+            docker compose exec -T web python manage.py check --deploy
+            docker compose ps
