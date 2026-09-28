@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffef56">
+  <meta name="theme-color" content="#f5f1e8">
   <meta name="description" content="منوی آنلاین آبمیوه و بستنی ویتا">
   <title>ویتا | یک جرعه حال خوب</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,19 +31,68 @@
         <a class="primary-action" href="#menu"><span>بزن بریم سراغ منو</span><b>↓</b></a>
       </div>
       <div class="juice-art" aria-hidden="true">
-        <span class="sun"></span>
-        <span class="straw"></span>
-        <div class="cup"><i></i><i></i><i></i><strong>V</strong></div>
-        <span class="fruit fruit-orange">●</span>
-        <span class="fruit fruit-lime">✦</span>
-        <span class="fruit fruit-berry">●</span>
-        <span class="spark spark-one">✦</span>
-        <span class="spark spark-two">✦</span>
+        <svg class="juice-scene" viewBox="0 0 520 500" role="presentation">
+          <defs>
+            <linearGradient id="glass" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff" stop-opacity=".78"/><stop offset=".5" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#c7d2b8" stop-opacity=".44"/></linearGradient>
+            <linearGradient id="juice" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f2a45e"/><stop offset=".5" stop-color="#d66e54"/><stop offset="1" stop-color="#a64d43"/></linearGradient>
+            <linearGradient id="rind" x1="0" x2="1"><stop stop-color="#e79b54"/><stop offset="1" stop-color="#f2c47d"/></linearGradient>
+            <clipPath id="cup-clip"><path d="M170 205h185l-20 238q-2 18-20 18h-105q-18 0-20-18z"/></clipPath>
+          </defs>
+          <ellipse cx="268" cy="458" rx="137" ry="19" fill="#23382f" opacity=".1"/>
+          <circle cx="270" cy="247" r="192" fill="#e4e8d8"/>
+          <circle cx="270" cy="247" r="166" fill="#edf0e5"/>
+          <path d="M131 119c-33-19-43-56-29-83 33 5 54 32 48 64 19-31 48-37 75-25-11 37-43 57-80 47z" fill="#6b8068"/>
+          <path d="M389 157c30-23 37-57 22-81-31 9-48 36-40 66-21-28-49-30-74-15 15 34 48 49 83 36z" fill="#91a184"/>
+          <path d="M132 351c-26 3-45-15-45-35 21-12 43-6 54 13-3-25 10-42 32-48 12 27 3 54-23 70z" fill="#778a70"/>
+
+          <g class="svg-fruit svg-orange" transform="translate(212 85) rotate(-22)">
+            <animateMotion path="M0 0 C0 -18 28 -18 28 0 C28 18 0 18 0 0" dur="5.8s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="rotate" values="0; 10; 0" dur="5.8s" repeatCount="indefinite" additive="sum"/>
+            <circle r="31" fill="url(#rind)" stroke="#fffaf1" stroke-width="5"/><circle r="23" fill="#f9dfaa"/>
+            <path d="M0-21v42M-21 0h42M-15-15l30 30M15-15l-30 30" stroke="#fffaf1" stroke-width="3"/>
+            <circle r="5" fill="#d88150"/>
+          </g>
+          <g class="svg-fruit svg-lime" transform="translate(341 53) rotate(17)">
+            <animateMotion path="M0 0 C0 15 -24 15 -24 0 C-24 -15 0 -15 0 0" dur="6.7s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="rotate" values="0; -10; 0" dur="6.7s" repeatCount="indefinite" additive="sum"/>
+            <circle r="26" fill="#748568" stroke="#fffaf1" stroke-width="5"/><circle r="19" fill="#e9e6bc"/>
+            <path d="M0-17v34M-17 0h34M-12-12l24 24M12-12l-24 24" stroke="#fffaf1" stroke-width="2.5"/><circle r="4" fill="#77815b"/>
+          </g>
+          <g class="svg-fruit svg-berry" transform="translate(167 165)">
+            <animateMotion path="M0 0 C0 -12 18 -12 18 0 C18 12 0 12 0 0" dur="4.9s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="rotate" values="0; 12; 0" dur="4.9s" repeatCount="indefinite" additive="sum"/>
+            <path d="M0-24c17 0 26 14 23 27-4 17-23 31-23 31S-19 20-23 3c-3-13 6-27 23-27z" fill="#aa625d" stroke="#fffaf1" stroke-width="4"/>
+            <path d="M-6-21q6-13 14-11M-3-13v4m12-1v4M-11 1v4m19 3v4" fill="none" stroke="#f4d6b9" stroke-width="2" stroke-linecap="round"/>
+          </g>
+
+          <path d="M274 107l52 4-55 130-34-14z" fill="#687b68" stroke="#34473e" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M170 205h185l-20 238q-2 18-20 18h-105q-18 0-20-18z" fill="url(#glass)" stroke="#405448" stroke-width="7" stroke-linejoin="round"/>
+          <g clip-path="url(#cup-clip)">
+            <path class="svg-liquid" d="M155 316q48-12 100 0t100 0l-17 160H170z" fill="url(#juice)">
+              <animate attributeName="d" values="M155 316q48-12 100 0t100 0l-17 160H170z;M155 304q48 12 100 0t100 0l-17 172H170z;M155 316q48-12 100 0t100 0l-17 160H170z" dur="3s" repeatCount="indefinite"/>
+            </path>
+            <path d="M186 338q21 23 42 0m96-7q17 18 34 0" fill="none" stroke="#f2c47d" stroke-width="8" opacity=".55"/>
+            <circle cx="226" cy="376" r="12" fill="#f4d6b9" opacity=".72"/><circle cx="318" cy="406" r="8" fill="#f4d6b9" opacity=".68"/>
+          </g>
+          <path d="M181 220l17 204q1 10 9 12" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity=".68"/>
+          <ellipse cx="262" cy="205" rx="92" ry="14" fill="#edf0e5" stroke="#405448" stroke-width="7"/>
+          <ellipse cx="262" cy="207" rx="78" ry="8" fill="#d98b5b" opacity=".82"/>
+          <path d="M239 360h47" stroke="#fffaf1" stroke-width="4" stroke-linecap="round" opacity=".72"/>
+        </svg>
+        <span class="scene-caption">ترکیب تازه‌ی امروز <i>✳</i></span>
       </div>
       <div class="hero-note"><strong>{{ item_count }}</strong><span>طعم برای<br>انتخاب تو</span></div>
     </section>
 
     <section class="menu" id="menu">
+      <div class="juice-waterfall" aria-hidden="true">
+        <svg viewBox="0 0 80 900" preserveAspectRatio="none">
+          <defs><linearGradient id="menu-juice" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#d98b5b" stop-opacity="0"/><stop offset=".15" stop-color="#d98b5b" stop-opacity=".72"/><stop offset=".85" stop-color="#bd6d59" stop-opacity=".72"/><stop offset="1" stop-color="#bd6d59" stop-opacity="0"/></linearGradient></defs>
+          <path class="juice-ribbon-shadow" d="M47-10C10 75 72 120 39 204S65 329 35 405 69 541 38 617 67 743 38 820 51 875 31 910"/>
+          <path class="juice-ribbon" d="M47-10C10 75 72 120 39 204S65 329 35 405 69 541 38 617 67 743 38 820 51 875 31 910"/>
+          <path class="juice-ribbon-glint" d="M47-10C10 75 72 120 39 204S65 329 35 405 69 541 38 617 67 743 38 820 51 875 31 910"/>
+        </svg>
+      </div>
       <header class="section-heading menu-heading"><span>01</span><div><p>هر چی دلت می‌خواد</p><h2>منوی خوشمزه‌ها</h2></div></header>
 
       <div class="menu-controls">
@@ -65,7 +114,7 @@
           <header><div><span>0{{ forloop.counter }}</span><h2>{{ group.name }}</h2></div><small>{{ group.items|length }} انتخاب</small></header>
           <div class="items">
             {% for item in group.items %}
-            <article class="menu-item" data-name="{{ item.name }} {{ item.description }}">
+            <article class="menu-item" data-name="{{ item.name }} {{ item.description }}" tabindex="0">
               <div class="item-top"><h3>{{ item.name }}</h3>{% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}</div>
               <p>{{ item.description }}</p>
               <div class="price"><strong>{{ item.price }}</strong><span>هزار<br>تومان</span></div>
@@ -84,6 +133,10 @@
     </section>
   </main>
 
+  <a class="back-to-top" href="#top" aria-label="بازگشت به بالای صفحه">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"></path></svg>
+    <span>بالا</span>
+  </a>
   <footer><strong>VITA®</strong><span>هر روز از ۹ صبح تا ۱۲ شب</span><a href="#top">برگرد بالا ↑</a></footer>
   <script src="{% static 'menu/menu.js' %}"></script>
 </body>

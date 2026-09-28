@@ -4,6 +4,7 @@ const categoryButtons = document.querySelectorAll('.category');
 const groups = document.querySelectorAll('.menu-group');
 const emptyState = document.querySelector('.empty-state');
 const resultCount = document.querySelector('.result-count strong');
+const backToTop = document.querySelector('.back-to-top');
 const persianNumber = new Intl.NumberFormat('fa-IR');
 let activeCategory = 'همه';
 
@@ -47,5 +48,12 @@ clearButton.addEventListener('click', () => {
   searchInput.focus();
   filterMenu();
 });
+
+function updateBackToTop() {
+  backToTop.classList.toggle('visible', window.scrollY > window.innerHeight * 0.7);
+}
+
+window.addEventListener('scroll', updateBackToTop, { passive: true });
+updateBackToTop();
 
 filterMenu();
