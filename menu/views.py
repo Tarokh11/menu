@@ -83,6 +83,14 @@ def menu(request):
     )
 
 
+def hero_demo(request):
+    return render(
+        request,
+        "demos/hero_fresh.html",
+        {"item_count": sum(len(entries) for entries in MENU_DATA.values())},
+    )
+
+
 def menu_qr(request):
     target = request.build_absolute_uri("/")
     image = qrcode.make(target, border=2)

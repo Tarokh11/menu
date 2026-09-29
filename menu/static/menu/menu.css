@@ -171,6 +171,16 @@ footer a { font-weight: 800; }
 
 button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
 
+html:before { background: #bd7770; content: ""; height: 3px; inset: 0 0 auto; pointer-events: none; position: fixed; transform: scaleX(var(--page-progress, 0)); transform-origin: right; z-index: 100; }
+.juice-art { translate: var(--float-x, 0px) var(--float-y, 0px); transition: translate .35s cubic-bezier(.2,.7,.3,1); will-change: translate; }
+.menu-heading.motion-reveal, .menu-group.motion-reveal, .visit-copy.motion-reveal, .qr-ticket.motion-reveal { opacity: 0; translate: 0 18px; transition: opacity .65s ease, translate .65s cubic-bezier(.2,.75,.25,1); }
+.motion-reveal.is-revealed { opacity: 1; translate: 0 0; }
+.menu-item.motion-card { opacity: 0; translate: 0 14px; transition: opacity .5s ease var(--reveal-delay, 0ms), translate .5s cubic-bezier(.2,.75,.25,1) var(--reveal-delay, 0ms); }
+.menu-item.motion-card.is-revealed { opacity: 1; translate: 0 0; }
+.menu-item:after { background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255,255,255,.72), transparent 58%), color-mix(in srgb, var(--group-color) 36%, transparent); }
+.menu-controls { backdrop-filter: blur(12px); }
+.result-count strong { display: inline-block; font-variant-numeric: tabular-nums; min-width: 2ch; }
+
 @keyframes waterfall-flow { to { background-position: 0 130px; } }
 @keyframes stream-glint { 0%,100% { opacity: .25; transform: translateY(0); } 50% { opacity: .85; transform: translateY(180px); } }
 @keyframes falling-drop { from { opacity: 0; top: 2%; } 8%,85% { opacity: 1; } to { opacity: 0; top: 96%; } }
@@ -335,6 +345,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline-color: #bd7
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html:before { display: none; }
+  .juice-art, .menu-heading.motion-reveal, .menu-group.motion-reveal, .visit-copy.motion-reveal, .qr-ticket.motion-reveal, .menu-item.motion-card { opacity: 1; translate: none; transition: none; }
   .juice-ribbon-glint { animation: none; }
   .svg-fruit animateMotion, .svg-liquid animate { display: none; }
   .menu-item { transition: none; }

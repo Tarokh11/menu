@@ -62,3 +62,15 @@ docker compose run --rm web python manage.py test
 ```
 
 Generated `staticfiles/`, SQLite databases, virtual environments, and `.env` files are deployment-only and must not be committed.
+
+## Design demos
+
+Design iterations live beside the production page and do not replace it. The
+current independent Hero concept is **Demo 01 · Hero Fresh** at
+`/demos/hero-fresh/`. The existing menu stays at `/`.
+
+For each new concept, add a separately named Django template under
+`templates/demos/`, concept-specific static files under
+`menu/static/menu/demos/`, and a named demo URL. Keep its classes scoped to
+that demo, add a test for its route, and leave existing demos in place. Promote
+a chosen design to production only in a separate, explicit change.

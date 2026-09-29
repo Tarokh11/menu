@@ -105,7 +105,7 @@
           <button class="category active" data-category="همه" aria-pressed="true"><span>✦</span> همه</button>
           {% for group in groups %}<button class="category" data-category="{{ group.name }}" aria-pressed="false">{{ group.name }}</button>{% endfor %}
         </nav>
-        <p class="result-count"><strong>{{ item_count }}</strong> مورد برای انتخاب</p>
+        <p class="result-count" aria-live="polite" aria-atomic="true"><strong>{{ item_count }}</strong> مورد برای انتخاب</p>
       </div>
 
       <div class="menu-groups">
@@ -137,7 +137,7 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"></path></svg>
     <span>بالا</span>
   </a>
-  <footer><strong>VITA®</strong><span>هر روز از ۹ صبح تا ۱۲ شب</span><a href="#top">برگرد بالا ↑</a></footer>
+  <footer><strong>VITA®</strong><span>هر روز از ۹ صبح تا ۱۲ شب</span><a href="{% url 'hero_demo' %}">دموی مستقل Hero</a><a href="#top">برگرد بالا ↑</a></footer>
   <script src="{% static 'menu/menu.js' %}"></script>
 </body>
 </html>

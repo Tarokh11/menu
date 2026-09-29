@@ -12,6 +12,18 @@ class MenuViewsTests(SimpleTestCase):
         self.assertContains(response, 'lang="fa" dir="rtl"')
         self.assertContains(response, 'class="menu-item"', count=40)
         self.assertEqual(sum(map(len, MENU_DATA.values())), 40)
+        self.assertContains(response, "دموی مستقل Hero")
+        self.assertContains(response, "یه جرعه", html=False)
+        self.assertNotContains(response, "طعمِ تازه،")
+
+    def test_fresh_hero_concept_has_its_own_demo_page(self):
+        response = self.client.get(reverse("hero_demo"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "DEMO 01")
+        self.assertContains(response, "طعمِ تازه،")
+        self.assertContains(response, "menu/images/hero-glass.svg")
+        self.assertContains(response, "menu/demos/hero-fresh.css")
 
     def test_qr_endpoint_returns_png(self):
         response = self.client.get(reverse("menu_qr"))
