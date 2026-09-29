@@ -1,27 +1,32 @@
 {% load static %}
 <section class="hero hero-fresh" aria-labelledby="hero-title">
   <div class="hero-copy">
-    <p class="overline"><span aria-hidden="true"></span> آبمیوه و بستنی طبیعی، هر روز تازه</p>
-    <h1 id="hero-title">طعمِ تازه،<br><em>حالِ بهتر.</em></h1>
-    <p class="intro">از میوه‌ی رسیده تا اولین جرعه؛ ساده، طبیعی و درست همان‌طور که دوستش داری.</p>
+    <p class="overline"><span aria-hidden="true"></span> از میوه‌ی واقعی، هر روز تازه</p>
+    <h1 id="hero-title">یه جرعه<br><em>تازگی.</em></h1>
+    <p class="intro">آب‌میوه‌ای که عطر پرتقال تازه و خنکیِ اولین جرعه‌اش، حالِ روزت رو عوض می‌کنه.</p>
     <div class="hero-actions">
-      <a class="primary-action" href="#menu"><span>کشف طعم‌ها</span><b aria-hidden="true">←</b></a>
+      <a class="primary-action" href="#menu"><span>منوی ویتا</span><b aria-hidden="true">←</b></a>
       <a class="secondary-action" href="tel:+982112345678"><span aria-hidden="true">☎</span> سفارش تلفنی</a>
     </div>
-    <div class="hero-proof"><span><i aria-hidden="true">✳</i> میوه‌ی تازه‌ی روز</span><span><i aria-hidden="true">✓</i> ترکیب دلخواه تو</span></div>
+    <div class="hero-proof">
+      <span><i aria-hidden="true">✳</i> میوه‌ی تازه‌ی روز</span>
+      <span><i aria-hidden="true">✓</i> بدون افزودنی مصنوعی</span>
+    </div>
   </div>
 
   <div class="hero-visual" aria-hidden="true">
-    <div class="hero-orb hero-orb-back"></div>
-    <div class="hero-orb hero-orb-front"></div>
-    <div class="hero-leaf hero-leaf-one"></div>
-    <div class="hero-leaf hero-leaf-two"></div>
-    <img class="hero-fruit hero-orange" src="{% static 'menu/demos/demo-01/images/orange.svg' %}" alt="">
-    <img class="hero-fruit hero-strawberry" src="{% static 'menu/demos/demo-01/images/strawberry.svg' %}" alt="">
-    <img class="hero-fruit hero-kiwi" src="{% static 'menu/demos/demo-01/images/kiwi.svg' %}" alt="">
-    <div class="hero-drink-shadow"></div>
-    <img class="hero-glass" src="{% static 'menu/demos/demo-01/images/glass.svg' %}" alt="">
-    <div class="hero-freshness"><i aria-hidden="true">✳</i><span>ترکیب تازه‌ی امروز</span></div>
-    <div class="hero-note"><strong>{{ item_count }}</strong><span>طعم طبیعی<br>برای انتخاب تو</span></div>
+    <div class="hero-sun"></div>
+    <div class="hero-orbit hero-orbit-one"></div>
+    <div class="hero-orbit hero-orbit-two"></div>
+    <img class="hero-art hero-splash" src="{% static 'menu/demos/demo-01/images/juice-splash.webp' %}" alt="">
+    <img class="hero-art hero-leaves" src="{% static 'menu/demos/demo-01/images/leaves.webp' %}" alt="">
+    <img class="hero-art hero-orange" src="{% static 'menu/demos/demo-01/images/orange.webp' %}" alt="">
+    <img class="hero-art hero-strawberry" src="{% static 'menu/demos/demo-01/images/strawberry.webp' %}" alt="">
+    <img class="hero-art hero-kiwi" src="{% static 'menu/demos/demo-01/images/kiwi.webp' %}" alt="">
+    <div class="hero-glass-shadow"></div>
+    <img class="hero-art hero-juice" src="{% static 'menu/demos/demo-01/images/orange-juice.webp' %}" alt="">
+    <div class="hero-seal"><span>هر روز</span><strong>تازه<br>فشرده</strong><i>✳</i></div>
+    <div class="hero-caption"><span class="hero-caption-dot"></span><span>پرتقالِ واقعی<br><strong>طعمِ بی‌واسطه</strong></span></div>
+    <span class="hero-index">VITA · FRESH DAILY</span>
   </div>
 </section>

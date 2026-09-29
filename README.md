@@ -67,7 +67,7 @@ Generated `staticfiles/`, SQLite databases, virtual environments, and `.env` fil
 
 The root page is composed from reusable Django template components. The
 production composition at `/` uses each component's `default` variant; the
-gallery at `/demos/` lists saved concepts. **Demo 01 · Fresh Hero** is at
+gallery at `/demos/` lists saved concepts. **Demo 01 · Orange Fresh** is at
 `/demos/demo-01/` and changes only the hero. Header, menu/prices, visit/QR,
 and footer continue using their defaults.
 

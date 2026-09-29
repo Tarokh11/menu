@@ -21,11 +21,13 @@ class MenuViewsTests(SimpleTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Demo 01")
-        self.assertContains(response, "طعمِ تازه،")
+        self.assertContains(response, "یه جرعه")
         self.assertContains(response, 'class="menu-item"', count=40)
         self.assertContains(response, "پاتوق خوشمزه‌ها")
         self.assertContains(response, "VITA®")
-        self.assertContains(response, "menu/demos/demo-01/images/glass.svg")
+        self.assertContains(response, "menu/demos/demo-01/images/orange-juice.webp")
+        self.assertContains(response, "menu/demos/demo-01/images/juice-splash.webp")
+        self.assertContains(response, "menu/demos/demo-01/images/strawberry.webp")
         self.assertContains(response, "menu/demos/demo-01/style.css")
 
     def test_demo_gallery_links_to_saved_concepts(self):

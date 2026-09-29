@@ -113,9 +113,9 @@ def demo_01(request):
         components={"hero": "components/hero/demo_01_fresh.html"},
         is_demo=True,
         page_class="hero-demo-page demo-01",
-        page_title="Demo 01 · Fresh Hero | ویتا",
-        page_description="دموی مستقل Hero تازه و طبیعی ویتا",
-        theme_color="#f4f4e9",
+        page_title="Demo 01 · Orange Fresh Hero | ویتا",
+        page_description="دموی Hero ویتا با پرتقال تازه و آب‌میوه‌ی طبیعی",
+        theme_color="#f8f5ed",
         demo_css="menu/demos/demo-01/style.css",
         demo_js="menu/demos/demo-01/interactions.js",
     )
