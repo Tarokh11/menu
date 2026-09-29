@@ -1,0 +1,42 @@
+<section class="menu" id="menu">
+  <div class="juice-waterfall" aria-hidden="true">
+    <svg viewBox="0 0 80 900" preserveAspectRatio="none">
+      <defs><linearGradient id="menu-juice" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#d98b5b" stop-opacity="0"/><stop offset=".15" stop-color="#d98b5b" stop-opacity=".72"/><stop offset=".85" stop-color="#bd6d59" stop-opacity=".72"/><stop offset="1" stop-color="#bd6d59" stop-opacity="0"/></linearGradient></defs>
+      <path class="juice-ribbon-shadow" d="M47-10C10 75 72 120 39 204S65 329 35 405 69 541 38 617 67 743 38 820 51 875 31 910"/>
+      <path class="juice-ribbon" d="M47-10C10 75 72 120 39 204S65 329 35 405 69 541 38 617 67 743 38 820 51 875 31 910"/>
+      <path class="juice-ribbon-glint" d="M47-10C10 75 72 120 39 204S65 329 35 405 69 541 38 617 67 743 38 820 51 875 31 910"/>
+    </svg>
+  </div>
+  <header class="section-heading menu-heading"><span>01</span><div><p>هر چی دلت می‌خواد</p><h2>منوی خوشمزه‌ها</h2></div></header>
+
+  <div class="menu-controls">
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+      <input id="menu-search" type="search" placeholder="اسم یا ترکیبات رو جستجو کن..." autocomplete="off">
+      <button type="button" aria-label="پاک کردن جستجو">×</button>
+    </label>
+    <nav class="categories" aria-label="دسته‌بندی منو">
+      <button class="category active" data-category="همه" aria-pressed="true"><span>✦</span> همه</button>
+      {% for group in groups %}<button class="category" data-category="{{ group.name }}" aria-pressed="false">{{ group.name }}</button>{% endfor %}
+    </nav>
+    <p class="result-count" aria-live="polite" aria-atomic="true"><strong>{{ item_count }}</strong> مورد برای انتخاب</p>
+  </div>
+
+  <div class="menu-groups">
+    {% for group in groups %}
+    <section class="menu-group group-{% cycle 'pink' 'blue' 'orange' 'green' 'purple' 'yellow' %}" data-category="{{ group.name }}">
+      <header><div><span>0{{ forloop.counter }}</span><h2>{{ group.name }}</h2></div><small>{{ group.items|length }} انتخاب</small></header>
+      <div class="items">
+        {% for item in group.items %}
+        <article class="menu-item" data-name="{{ item.name }} {{ item.description }}" tabindex="0">
+          <div class="item-top"><h3>{{ item.name }}</h3>{% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}</div>
+          <p>{{ item.description }}</p>
+          <div class="price"><strong>{{ item.price }}</strong><span>هزار<br>تومان</span></div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+  </div>
+  <div class="empty-state" hidden><span>🍊</span><h2>این یکی رو نداریم!</h2><p>یک اسم یا ترکیب دیگه جستجو کن.</p></div>
+</section>

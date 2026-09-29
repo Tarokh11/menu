@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="{{ theme_color|default:'#f5f1e8' }}">
+  <meta name="description" content="{{ page_description|default:'منوی آنلاین آبمیوه و بستنی ویتا' }}">
+  <title>{{ page_title|default:'ویتا | یک جرعه حال خوب' }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'menu/menu.css' %}">
+  {% if demo_css %}<link rel="stylesheet" href="{% static demo_css %}">{% endif %}
+</head>
+<body{% if page_class %} class="{{ page_class }}"{% endif %}>
+  {% include components.header %}
+  <main>
+    {% include components.hero %}
+    {% include components.menu %}
+    {% include components.visit %}
+  </main>
+  {% include components.footer %}
+  <script src="{% static 'menu/menu.js' %}"></script>
+  {% if demo_js %}<script src="{% static demo_js %}"></script>{% endif %}
+</body>
+</html>

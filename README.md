@@ -63,14 +63,20 @@ docker compose run --rm web python manage.py test
 
 Generated `staticfiles/`, SQLite databases, virtual environments, and `.env` files are deployment-only and must not be committed.
 
-## Design demos
+## Component design demos
 
-Design iterations live beside the production page and do not replace it. The
-current independent Hero concept is **Demo 01 · Hero Fresh** at
-`/demos/hero-fresh/`. The existing menu stays at `/`.
+The root page is composed from reusable Django template components. The
+production composition at `/` uses each component's `default` variant; the
+gallery at `/demos/` lists saved concepts. **Demo 01 · Fresh Hero** is at
+`/demos/demo-01/` and changes only the hero. Header, menu/prices, visit/QR,
+and footer continue using their defaults.
 
-For each new concept, add a separately named Django template under
-`templates/demos/`, concept-specific static files under
-`menu/static/menu/demos/`, and a named demo URL. Keep its classes scoped to
-that demo, add a test for its route, and leave existing demos in place. Promote
-a chosen design to production only in a separate, explicit change.
+Component templates live under `templates/components/<component>/`, with
+variants as separate files. Demo 01 selects
+`components/hero/demo_01_fresh.html` and keeps the other four components on
+their defaults. Its CSS, JavaScript, and artwork are isolated under
+`menu/static/menu/demos/demo-01/`.
+
+To add a concept, create a component variant, add a composition route that
+selects it alongside defaults, add a gallery card and a test. Keep previous
+variants and demos; promoting a design to `/` is a separate, explicit change.

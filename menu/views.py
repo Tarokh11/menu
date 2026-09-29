@@ -61,7 +61,7 @@ MENU_DATA = {
 }
 
 
-def menu(request):
+def menu_content():
     groups = []
     for category, entries in MENU_DATA.items():
         items = []
@@ -76,19 +76,53 @@ def menu(request):
             items.append(item)
         groups.append({"name": category, "items": items})
 
-    return render(
+    return groups, sum(len(group["items"]) for group in groups)
+
+
+DEFAULT_COMPONENTS = {
+    "header": "components/header/default.html",
+    "hero": "components/hero/default.html",
+    "menu": "components/menu/default.html",
+    "visit": "components/visit/default.html",
+    "footer": "components/footer/default.html",
+}
+
+
+def render_composition(request, *, components=None, **page_options):
+    groups, item_count = menu_content()
+    context = {
+        "components": {**DEFAULT_COMPONENTS, **(components or {})},
+        "groups": groups,
+        "item_count": item_count,
+        **page_options,
+    }
+    return render(request, "layouts/menu_page.html", context)
+
+
+def menu(request):
+    return render_composition(request)
+
+
+def demo_index(request):
+    return render(request, "demos/index.html")
+
+
+def demo_01(request):
+    return render_composition(
         request,
-        "menu/menu.html",
-        {"groups": groups, "item_count": sum(len(group["items"]) for group in groups)},
+        components={"hero": "components/hero/demo_01_fresh.html"},
+        is_demo=True,
+        page_class="hero-demo-page demo-01",
+        page_title="Demo 01 · Fresh Hero | ویتا",
+        page_description="دموی مستقل Hero تازه و طبیعی ویتا",
+        theme_color="#f4f4e9",
+        demo_css="menu/demos/demo-01/style.css",
+        demo_js="menu/demos/demo-01/interactions.js",
     )
 
 
 def hero_demo(request):
-    return render(
-        request,
-        "demos/hero_fresh.html",
-        {"item_count": sum(len(entries) for entries in MENU_DATA.values())},
-    )
+    return demo_01(request)
 
 
 def menu_qr(request):

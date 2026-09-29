@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f1e8">
+  <title>دموهای طراحی | ویتا</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'menu/menu.css' %}">
+  <link rel="stylesheet" href="{% static 'menu/demos/gallery.css' %}">
+</head>
+<body class="demo-gallery">
+  <header class="site-header">
+    <a class="brand" href="{% url 'menu' %}"><span>VITA</span><strong>ویتا</strong></a>
+    <a class="call-link" href="{% url 'menu' %}">صفحه‌ی اصلی <span aria-hidden="true">↗</span></a>
+  </header>
+  <main class="gallery-main">
+    <p class="gallery-kicker">DESIGN WORKSHOP / 01</p>
+    <h1>دموهای طراحی</h1>
+    <p class="gallery-intro">هر دمو ترکیب مستقلی از componentهای صفحه است. نسخه‌ی اصلی تا زمان انتخاب شما جدا می‌ماند.</p>
+    <div class="demo-grid">
+      <a class="demo-card" href="{% url 'demo_01' %}">
+        <div class="demo-card-preview demo-card-preview-fresh"><span>✳</span><b>FRESH<br>HERO</b><i>01</i></div>
+        <div class="demo-card-copy"><span>DEMO 01 · HERO VARIANT</span><h2>Hero Fresh</h2><p>Hero تازه با header، منو، بخش تماس و footer پیش‌فرض.</p><strong>مشاهده‌ی دمو <span aria-hidden="true">←</span></strong></div>
+      </a>
+    </div>
+    <aside class="composition-note"><strong>ترکیب Demo 01</strong><span>Header: default</span><span>Hero: demo-01-fresh</span><span>Menu / Visit / Footer: default</span></aside>
+  </main>
+</body>
+</html>

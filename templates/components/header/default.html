@@ -1,0 +1,9 @@
+<div class="ticker" aria-label="ویژگی‌های محصولات">
+  <div><span>میوه تازه هر روز</span><b>✦</b><span>بدون رنگ مصنوعی</span><b>✦</b><span>سفارش ترکیب دلخواه</span><b>✦</b><span>میوه تازه هر روز</span></div>
+</div>
+
+<header class="site-header{% if is_demo %} demo-header{% endif %}" id="top">
+  <a class="brand" href="{% url 'menu' %}"><span>VITA</span><strong>ویتا</strong></a>
+  {% if is_demo %}<a class="demo-back" href="{% url 'demo_index' %}">بازگشت به دموها <span aria-hidden="true">↗</span></a>{% endif %}
+  <a class="call-link" href="tel:+982112345678"><i></i> سفارش تلفنی</a>
+</header>

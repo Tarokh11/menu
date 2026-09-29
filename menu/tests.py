@@ -12,18 +12,28 @@ class MenuViewsTests(SimpleTestCase):
         self.assertContains(response, 'lang="fa" dir="rtl"')
         self.assertContains(response, 'class="menu-item"', count=40)
         self.assertEqual(sum(map(len, MENU_DATA.values())), 40)
-        self.assertContains(response, "دموی مستقل Hero")
         self.assertContains(response, "یه جرعه", html=False)
         self.assertNotContains(response, "طعمِ تازه،")
+        self.assertNotContains(response, "menu/demos/demo-01/style.css")
 
-    def test_fresh_hero_concept_has_its_own_demo_page(self):
-        response = self.client.get(reverse("hero_demo"))
+    def test_demo_01_changes_only_the_hero_component(self):
+        response = self.client.get(reverse("demo_01"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "DEMO 01")
+        self.assertContains(response, "Demo 01")
         self.assertContains(response, "طعمِ تازه،")
-        self.assertContains(response, "menu/images/hero-glass.svg")
-        self.assertContains(response, "menu/demos/hero-fresh.css")
+        self.assertContains(response, 'class="menu-item"', count=40)
+        self.assertContains(response, "پاتوق خوشمزه‌ها")
+        self.assertContains(response, "VITA®")
+        self.assertContains(response, "menu/demos/demo-01/images/glass.svg")
+        self.assertContains(response, "menu/demos/demo-01/style.css")
+
+    def test_demo_gallery_links_to_saved_concepts(self):
+        response = self.client.get(reverse("demo_index"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Demo 01")
+        self.assertContains(response, reverse("demo_01"))
 
     def test_qr_endpoint_returns_png(self):
         response = self.client.get(reverse("menu_qr"))
