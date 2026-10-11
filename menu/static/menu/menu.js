@@ -11,6 +11,7 @@ const heroArt = document.querySelector('.juice-art');
 const persianNumber = new Intl.NumberFormat('fa-IR');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let activeCategory = 'همه';
+let favoritesOnly = false;
 let countAnimation = 0;
 let scrollFrame = 0;
 let currentVisibleCount = menuItems.length;
@@ -53,7 +54,8 @@ function filterMenu() {
     group.querySelectorAll('.menu-item').forEach((item) => {
       const categoryMatches = activeCategory === 'همه' || group.dataset.category === activeCategory;
       const searchMatches = item.dataset.name.toLocaleLowerCase('fa').includes(query);
-      const visible = categoryMatches && searchMatches;
+      const favoriteMatches = !favoritesOnly || item.dataset.favorite === 'true';
+      const visible = categoryMatches && searchMatches && favoriteMatches;
       const wasHidden = item.hidden;
 
       item.hidden = !visible;
@@ -68,6 +70,10 @@ function filterMenu() {
 
   clearButton.classList.toggle('visible', Boolean(query));
   emptyState.hidden = visibleItems !== 0;
+  if (document.querySelector('.favorites-filter')) {
+    emptyState.querySelector('h2').textContent = favoritesOnly ? 'هنوز انتخابی اینجا نیست' : 'این یکی رو نداریم!';
+    emptyState.querySelector('p').textContent = favoritesOnly ? 'با دکمهٔ قلب، طعم‌های دلخواهت را ذخیره کن؛ یا جستجو و دسته‌بندی را تغییر بده.' : 'یک اسم یا ترکیب دیگه جستجو کن.';
+  }
   animateCount(visibleItems);
 }
 
@@ -177,3 +183,31 @@ menuItems.forEach((item) => {
 });
 
 filterMenu();
+
+const designSwitcher = document.querySelector('.design-switcher');
+if (designSwitcher) {
+  document.addEventListener('click', (event) => {
+    if (!designSwitcher.contains(event.target)) designSwitcher.open = false;
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && designSwitcher.open) {
+      designSwitcher.open = false;
+      designSwitcher.querySelector('summary').focus();
+    }
+  });
+  designSwitcher.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => { designSwitcher.open = false; });
+  });
+}
+
+document.addEventListener('vita:favorites-filter', (event) => {
+  favoritesOnly = event.detail;
+  filterMenu();
+});
+document.addEventListener('vita:favorites-changed', filterMenu);
+document.querySelector('.reset-menu')?.addEventListener('click', () => {
+  searchInput.value = '';
+  categoryButtons[0].click();
+  document.dispatchEvent(new CustomEvent('vita:reset-favorites'));
+  filterMenu();
+});

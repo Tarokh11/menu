@@ -19,6 +19,9 @@
       <button class="category active" data-category="همه" aria-pressed="true"><span>✦</span> همه</button>
       {% for group in groups %}<button class="category" data-category="{{ group.name }}" aria-pressed="false">{{ group.name }}</button>{% endfor %}
     </nav>
+    {% if show_color_themes %}
+    <div class="menu-interactions"><button type="button" class="favorites-filter" aria-pressed="false">♡ علاقه‌مندی‌های من <span class="favorites-count">۰</span></button><span>جزئیات هر طعم را ببین و انتخابت را ذخیره کن.</span></div>
+    {% endif %}
     <p class="result-count" aria-live="polite" aria-atomic="true"><strong>{{ item_count }}</strong> مورد برای انتخاب</p>
   </div>
 
@@ -28,9 +31,10 @@
       <header><div><span>0{{ forloop.counter }}</span><h2>{{ group.name }}</h2></div><small>{{ group.items|length }} انتخاب</small></header>
       <div class="items">
         {% for item in group.items %}
-        <article class="menu-item" data-name="{{ item.name }} {{ item.description }}" tabindex="0">
+        <article class="menu-item" data-name="{{ item.name }} {{ item.description }}"{% if show_color_themes %} data-product-id="{{ item.category }}|{{ item.name }}"{% else %} tabindex="0"{% endif %}>
           <div class="item-top"><h3>{{ item.name }}</h3>{% if item.tag %}<mark>{{ item.tag }}</mark>{% endif %}</div>
           <p>{{ item.description }}</p>
+          {% if show_color_themes %}<div class="item-actions"><button type="button" class="item-details" aria-label="جزئیات {{ item.name }}">جزئیات <span aria-hidden="true">↗</span></button><button type="button" class="item-favorite" aria-label="ذخیرهٔ {{ item.name }}" aria-pressed="false"><span aria-hidden="true">♡</span></button></div>{% endif %}
           <div class="price"><strong>{{ item.price }}</strong><span>هزار<br>تومان</span></div>
         </article>
         {% endfor %}
@@ -38,5 +42,18 @@
     </section>
     {% endfor %}
   </div>
-  <div class="empty-state" hidden><span>🍊</span><h2>این یکی رو نداریم!</h2><p>یک اسم یا ترکیب دیگه جستجو کن.</p></div>
+  <div class="empty-state" hidden><span>🍊</span><h2>این یکی رو نداریم!</h2><p>یک اسم یا ترکیب دیگه جستجو کن.</p>{% if show_color_themes %}<button type="button" class="reset-menu">نمایش همهٔ نوشیدنی‌ها</button>{% endif %}</div>
 </section>
+
+{% if show_color_themes %}
+<dialog class="product-dialog" aria-labelledby="product-title" aria-describedby="product-description">
+  <button type="button" class="dialog-close" aria-label="بستن جزئیات" autofocus>×</button>
+  <p class="product-category"></p>
+  <h2 id="product-title"></h2>
+  <p id="product-description"></p>
+  <p class="product-dialog-price"><strong></strong><span>هزار تومان</span></p>
+  <button type="button" class="dialog-favorite" aria-pressed="false">ذخیره در علاقه‌مندی‌ها</button>
+  <a class="dialog-call" href="tel:+982112345678">سفارش تلفنی</a>
+</dialog>
+<p class="interaction-status" role="status" aria-live="polite"></p>
+{% endif %}

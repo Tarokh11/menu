@@ -43,3 +43,22 @@ class MenuViewsTests(SimpleTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "image/png")
         self.assertTrue(response.content.startswith(b"\x89PNG"))
+
+
+class BlueDesignTests(SimpleTestCase):
+    def test_blue_design_keeps_menu_and_has_active_switch(self):
+        response = self.client.get(reverse("demo_02"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="menu-item"', count=40)
+        self.assertContains(response, "تازگی رو")
+        self.assertContains(response, 'class="item-favorite"', count=40)
+        self.assertContains(response, 'class="item-details"', count=40)
+        self.assertContains(response, 'class="product-dialog"')
+        self.assertContains(response, "menu/demos/demo-02/themes.js")
+        self.assertContains(response, "menu/demos/demo-02/style.css")
+        self.assertContains(response, 'href="/demos/demo-02/" aria-current="page"')
+
+    def test_design_is_reachable_from_original_and_gallery(self):
+        for name in ("menu", "demo_01", "demo_index"):
+            response = self.client.get(reverse(name))
+            self.assertContains(response, reverse("demo_02"))

@@ -5,5 +5,16 @@
 <header class="site-header{% if is_demo %} demo-header{% endif %}" id="top">
   <a class="brand" href="{% url 'menu' %}"><span>VITA</span><strong>ویتا</strong></a>
   {% if is_demo %}<a class="demo-back" href="{% url 'demo_index' %}">بازگشت به دموها <span aria-hidden="true">↗</span></a>{% endif %}
+  <details class="design-switcher">
+    <summary aria-label="باز کردن منوی صفحه"><span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span><span>منو</span></summary>
+    <nav aria-label="انتخاب طراحی صفحه">
+      <p>طراحی صفحه</p>
+      <a href="{% url 'menu' %}"{% if request.resolver_match.url_name == 'menu' %} aria-current="page"{% endif %}>ویتا کلاسیک</a>
+      <a href="{% url 'demo_01' %}"{% if request.resolver_match.url_name == 'demo_01' or request.resolver_match.url_name == 'hero_demo' %} aria-current="page"{% endif %}>پرتقال تازه</a>
+      <a href="{% url 'demo_02' %}"{% if request.resolver_match.url_name == 'demo_02' %} aria-current="page"{% endif %}>ویتا آبی · طرح جدید</a>
+      <a href="#menu">منوی نوشیدنی‌ها</a>
+      <a href="tel:+982112345678">سفارش تلفنی</a>
+    </nav>
+  </details>
   <a class="call-link" href="tel:+982112345678"><i></i> سفارش تلفنی</a>
 </header>

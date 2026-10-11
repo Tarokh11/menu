@@ -121,6 +121,20 @@ def demo_01(request):
     )
 
 
+def demo_02(request):
+    return render_composition(
+        request,
+        components={"hero": "components/hero/demo_02_blue.html"},
+        page_class="demo-02",
+        page_title="ویتا آبی | آبمیوه و بستنی طبیعی",
+        page_description="منوی تازه ویتا؛ آبمیوه طبیعی، اسموتی، شیک و بستنی",
+        theme_color="#1947b9",
+        demo_css="menu/demos/demo-02/style.css",
+        demo_js="menu/demos/demo-02/themes.js",
+        show_color_themes=True,
+    )
+
+
 def hero_demo(request):
     return demo_01(request)
 

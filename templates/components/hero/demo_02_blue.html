@@ -1,0 +1,16 @@
+{% load static %}
+<section class="hero blue-hero">
+  <div class="hero-copy">
+    <p class="overline">آبمیوه و بستنی ویتا</p>
+    <h1>تازگی رو<br>ببر با خودت.</h1>
+    <p class="intro">پرتقال تازه، یک لیوان خنک، یک مکث خوشمزه وسط روز. طعم امروزت رو از منوی ویتا انتخاب کن.</p>
+    <a class="primary-action" href="#menu"><span>انتخاب از منو</span><b aria-hidden="true">↓</b></a>
+    <p class="blue-hero-note">میوهٔ واقعی، آماده برای تو</p>
+  </div>
+  <figure class="blue-product">
+    <span class="blue-orbit" aria-hidden="true"></span>
+    <img src="{% static 'menu/demos/demo-02/orange-cup.png' %}" alt="لیوان آب پرتقال تازه ویتا" fetchpriority="high" width="1122" height="1402">
+    <figcaption><span>پرتقال طبیعی</span><strong>۱۲۰ <small>هزار تومان</small></strong></figcaption>
+  </figure>
+  <div class="blue-hero-bottom"><span>از میوه تا لیوان، تازه و طبیعی</span><a href="#menu">{{ item_count }} طعم برای انتخاب <span aria-hidden="true">↓</span></a></div>
+</section>

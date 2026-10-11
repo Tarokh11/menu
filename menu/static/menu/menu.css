@@ -351,3 +351,20 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline-color: #bd7
   .svg-fruit animateMotion, .svg-liquid animate { display: none; }
   .menu-item { transition: none; }
 }
+
+/* Saved designs navigation. */
+.site-header { position: relative; gap: 18px; }
+.design-switcher { position: relative; margin-inline-start: auto; z-index: 50; }
+.design-switcher summary { display: flex; align-items: center; gap: 9px; cursor: pointer; list-style: none; padding: 12px 8px; font-size: 12px; font-weight: 700; }
+.design-switcher summary::-webkit-details-marker { display: none; }
+.hamburger { display: grid; gap: 4px; width: 21px; }
+.hamburger i { display: block; height: 2px; background: currentColor; transition: transform .2s; }
+.design-switcher[open] .hamburger i:first-child { transform: translateY(6px) rotate(45deg); }
+.design-switcher[open] .hamburger i:nth-child(2) { opacity: 0; }
+.design-switcher[open] .hamburger i:last-child { transform: translateY(-6px) rotate(-45deg); }
+.design-switcher nav { position: absolute; top: calc(100% + 10px); inset-inline-end: 0; width: min(280px, calc(100vw - 32px)); padding: 12px; background: #fff; color: #29372f; border: 1px solid #d7ddd8; border-radius: 16px; box-shadow: 0 18px 50px #18342926; }
+.design-switcher nav p { margin: 4px 10px 10px; font-size: 12px; color: #59685f; }
+.design-switcher nav a { display: block; padding: 12px 10px; font-size: 13px; border-radius: 8px; text-decoration: none; }
+.design-switcher nav a:hover, .design-switcher nav a[aria-current] { background: #edf2ff; color: #1947b9; }
+.design-switcher summary:focus-visible { outline: 3px solid #1947b9; outline-offset: 3px; border-radius: 6px; }
+@media (max-width: 420px) { .site-header { gap: 8px; } .design-switcher summary { padding-inline: 4px; } .demo-back { font-size: 9px; } }
