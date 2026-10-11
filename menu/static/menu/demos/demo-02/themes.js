@@ -9,7 +9,10 @@
     document.body.dataset.colorTheme = theme;
     buttons.forEach(button => button.setAttribute('aria-pressed', String(button === selected)));
     themeMeta?.setAttribute('content', getComputedStyle(document.body).getPropertyValue('--theme-accent').trim());
-    if (announce) status.textContent = `تم ${selected.textContent.trim()} انتخاب شد`;
+    if (announce) {
+      status.textContent = `تم ${selected.textContent.trim()} انتخاب شد`;
+      document.dispatchEvent(new CustomEvent('vita:palette-changed'));
+    }
   }
   try { setTheme(localStorage.getItem(storageKey) || 'blue'); } catch { setTheme('blue'); }
   buttons.forEach(button => button.addEventListener('click', () => {
@@ -19,88 +22,77 @@
   }));
 })();
 
-
+// Layered motion: the cup floats inside a scene that responds to pointer and scroll.
 (() => {
-  const cards = [...document.querySelectorAll('.menu-item[data-product-id]')];
-  const filterButton = document.querySelector('.favorites-filter');
-  const dialog = document.querySelector('.product-dialog');
-  const status = document.querySelector('.interaction-status');
-  const storageKey = 'vita-favorite-drinks';
-  const knownIds = new Set(cards.map(card => card.dataset.productId));
-  let favorites = new Set();
-  let currentCard = null;
-  let opener = null;
-  let announcementTimer;
-  try {
-    const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    if (Array.isArray(saved)) favorites = new Set(saved.filter(id => knownIds.has(id)));
-  } catch { /* Favorites remain available for this visit. */ }
+  const hero = document.querySelector('.blue-hero');
+  const scene = document.querySelector('.blue-product');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(pointer: fine)');
+  const activeAnimations = new Set();
+  let frame = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+  let inView = true;
 
-  function syncFavorites() {
-    cards.forEach(card => {
-      const saved = favorites.has(card.dataset.productId);
-      const button = card.querySelector('.item-favorite');
-      card.dataset.favorite = String(saved);
-      button.setAttribute('aria-pressed', String(saved));
-      button.setAttribute('aria-label', `${saved ? 'حذف از علاقه‌مندی‌ها:' : 'ذخیرهٔ'} ${card.querySelector('h3').textContent}`);
-      button.querySelector('span').textContent = saved ? '♥' : '♡';
-    });
-    document.querySelector('.favorites-count').textContent = new Intl.NumberFormat('fa-IR').format(favorites.size);
-    if (currentCard) {
-      const saved = favorites.has(currentCard.dataset.productId);
-      dialog.querySelector('.dialog-favorite').setAttribute('aria-pressed', String(saved));
-      dialog.querySelector('.dialog-favorite').textContent = saved ? '♥ حذف از علاقه‌مندی‌ها' : '♡ ذخیره در علاقه‌مندی‌ها';
-    }
+  function animate(element, frames, options) {
+    if (motion.matches || !element?.animate) return;
+    const animation = element.animate(frames, options);
+    activeAnimations.add(animation);
+    animation.finished.then(() => activeAnimations.delete(animation), () => activeAnimations.delete(animation));
   }
-
-  function toggleFavorite(card) {
-    const id = card.dataset.productId;
-    if (favorites.has(id)) favorites.delete(id);
-    else favorites.add(id);
-    try { localStorage.setItem(storageKey, JSON.stringify([...favorites])); } catch { /* Storage can be unavailable. */ }
-    syncFavorites();
-    document.dispatchEvent(new CustomEvent('vita:favorites-changed'));
-    clearTimeout(announcementTimer);
-    status.textContent = `${card.querySelector('h3').textContent} ${favorites.has(id) ? 'ذخیره شد' : 'از علاقه‌مندی‌ها حذف شد'}`;
-    status.classList.add('visible');
-    announcementTimer = setTimeout(() => status.classList.remove('visible'), 2400);
+  function updateScene() {
+    frame = 0;
+    if (motion.matches || !inView) return;
+    const rect = hero.getBoundingClientRect();
+    const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
+    scene.style.setProperty('--scene-x', `${pointerX * 14}px`);
+    scene.style.setProperty('--scene-y', `${pointerY * 10 + progress * 28}px`);
+    scene.style.setProperty('--scene-roll', `${pointerX * -1.4}deg`);
   }
-
-  cards.forEach(card => {
-    card.querySelector('.item-favorite').addEventListener('click', (event) => {
-      toggleFavorite(card);
-      if (card.hidden) filterButton.focus();
+  function scheduleScene() {
+    if (!frame && !motion.matches && inView) frame = requestAnimationFrame(updateScene);
+  }
+  hero.addEventListener('pointermove', event => {
+    if (!finePointer.matches || motion.matches) return;
+    const rect = hero.getBoundingClientRect();
+    pointerX = (event.clientX - rect.left) / rect.width - .5;
+    pointerY = (event.clientY - rect.top) / rect.height - .5;
+    scheduleScene();
+  });
+  hero.addEventListener('pointerleave', () => {
+    pointerX = 0;
+    pointerY = 0;
+    scheduleScene();
+  });
+  window.addEventListener('scroll', scheduleScene, { passive: true });
+  if ('IntersectionObserver' in window) {
+    const visibility = new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      hero.classList.toggle('scene-paused', !inView);
+      if (inView) scheduleScene();
     });
-    card.querySelector('.item-details').addEventListener('click', (event) => {
-      currentCard = card;
-      opener = event.currentTarget;
-      dialog.querySelector('#product-title').textContent = card.querySelector('h3').textContent;
-      dialog.querySelector('#product-description').textContent = card.querySelector('p').textContent;
-      dialog.querySelector('.product-category').textContent = card.closest('.menu-group').dataset.category;
-      dialog.querySelector('.product-dialog-price strong').textContent = card.querySelector('.price strong').textContent;
-      syncFavorites();
-      dialog.showModal();
-      document.body.classList.add('product-dialog-open');
-    });
+    visibility.observe(hero);
+    const reveals = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        animate(entry.target, [{ opacity: .35, transform: 'translateY(22px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .08 });
+    document.querySelectorAll('.menu-group, .visit').forEach(element => reveals.observe(element));
+  }
+  animate(document.querySelector('.hero-copy'), [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 800, easing: 'cubic-bezier(.2,.7,.2,1)' });
+  document.addEventListener('vita:palette-changed', () => {
+    animate(document.querySelector('.product-float'), [{ scale: '1', rotate: '0deg' }, { scale: '1.035', rotate: '-2deg' }, { scale: '1', rotate: '0deg' }], { duration: 620, easing: 'cubic-bezier(.2,.7,.2,1)' });
   });
-  dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
-  dialog.querySelector('.dialog-favorite').addEventListener('click', () => toggleFavorite(currentCard));
-  dialog.addEventListener('click', (event) => {
-    const bounds = dialog.getBoundingClientRect();
-    if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close();
+  motion.addEventListener('change', () => {
+    if (motion.matches) {
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      activeAnimations.forEach(animation => animation.cancel());
+      scene.style.setProperty('--scene-x', '0px');
+      scene.style.setProperty('--scene-y', '0px');
+      scene.style.setProperty('--scene-roll', '0deg');
+    } else scheduleScene();
   });
-  dialog.addEventListener('close', () => {
-    document.body.classList.remove('product-dialog-open');
-    (currentCard?.hidden ? filterButton : opener)?.focus();
-  });
-  filterButton.addEventListener('click', () => {
-    const active = filterButton.getAttribute('aria-pressed') !== 'true';
-    filterButton.setAttribute('aria-pressed', String(active));
-    document.dispatchEvent(new CustomEvent('vita:favorites-filter', { detail: active }));
-  });
-  document.addEventListener('vita:reset-favorites', () => {
-    filterButton.setAttribute('aria-pressed', 'false');
-    document.dispatchEvent(new CustomEvent('vita:favorites-filter', { detail: false }));
-  });
-  syncFavorites();
 })();
