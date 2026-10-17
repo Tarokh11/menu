@@ -57,13 +57,11 @@ class BlueDesignTests(SimpleTestCase):
         self.assertContains(response, "menu/demos/demo-02/themes.js")
         self.assertContains(response, "menu/demos/demo-02/style.css")
         self.assertContains(response, 'href="http://94.184.45.92:8003/"')
-        self.assertNotContains(response, reverse("demo_01"))
-        self.assertNotContains(response, reverse("demo_02"))
+        self.assertNotRegex(response.content.decode(), r'href="/demos/demo-0[12]/"')
 
     def test_main_and_demo_pages_link_back_to_homepage_without_cross_links(self):
         for name in ("menu", "demo_01", "demo_02"):
             response = self.client.get(reverse(name))
             self.assertContains(response, 'href="http://94.184.45.92:8003/"')
-            self.assertNotContains(response, reverse("demo_01"))
-            self.assertNotContains(response, reverse("demo_02"))
+            self.assertNotRegex(response.content.decode(), r'href="/demos/demo-0[12]/"')
             self.assertNotContains(response, "منوی نوشیدنی‌ها")
