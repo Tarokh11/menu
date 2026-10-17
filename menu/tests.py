@@ -46,7 +46,7 @@ class MenuViewsTests(SimpleTestCase):
 
 
 class BlueDesignTests(SimpleTestCase):
-    def test_blue_design_keeps_menu_and_has_active_switch(self):
+    def test_blue_design_keeps_menu_and_links_back_to_homepage(self):
         response = self.client.get(reverse("demo_02"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'class="menu-item"', count=40)
@@ -56,9 +56,14 @@ class BlueDesignTests(SimpleTestCase):
         self.assertNotContains(response, 'class="product-dialog"')
         self.assertContains(response, "menu/demos/demo-02/themes.js")
         self.assertContains(response, "menu/demos/demo-02/style.css")
-        self.assertContains(response, 'href="/demos/demo-02/" aria-current="page"')
+        self.assertContains(response, 'href="http://94.184.45.92:8003/"')
+        self.assertNotContains(response, reverse("demo_01"))
+        self.assertNotContains(response, reverse("demo_02"))
 
-    def test_design_is_reachable_from_original_and_gallery(self):
-        for name in ("menu", "demo_01", "demo_index"):
+    def test_main_and_demo_pages_link_back_to_homepage_without_cross_links(self):
+        for name in ("menu", "demo_01", "demo_02"):
             response = self.client.get(reverse(name))
-            self.assertContains(response, reverse("demo_02"))
+            self.assertContains(response, 'href="http://94.184.45.92:8003/"')
+            self.assertNotContains(response, reverse("demo_01"))
+            self.assertNotContains(response, reverse("demo_02"))
+            self.assertNotContains(response, "منوی نوشیدنی‌ها")
